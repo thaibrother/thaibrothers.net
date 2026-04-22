@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ประวัติโรงเรียนในเครือมูลนิธิฯ — Thai Brothers</title>
+    <meta name="description" content="ประวัติครบถ้วนของ 14 โรงเรียนในเครือมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย ตั้งแต่พ.ศ. 2420 ถึงปัจจุบัน">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Sarabun:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+    /* ============================================
+       DESIGN SYSTEM
+       ============================================ */
+    :root {
+        --navy: #1a3a5c;
+        --navy-dark: #0d2640;
+        --navy-light: #2c5f8a;
+        --burgundy: #8b0000;
+        --gold: #c9a74e;
+        --gold-dark: #8b6914;
+        --cream: #fafaf7;
+        --white: #ffffff;
+        --gray-100: #f1f3f5;
+        --gray-200: #e9ecef;
+        --gray-400: #ced4da;
+        --gray-600: #6c757d;
+        --text: #2a2a2a;
+        --text-light: #5a5a5a;
+        --text-muted: #8a8a8a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Sarabun', 'Inter', sans-serif;
+        color: var(--text);
+        line-height: 1.7;
+        background: var(--cream);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: 'Playfair Display', 'Sarabun', serif;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.3;
+    }
+
+    a { transition: all 0.3s ease; }
+    img { max-width: 100%; height: auto; }
+
+    .container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .eyebrow {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--gold-dark);
+        margin-bottom: 12px;
+    }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .site-nav {
+        background: var(--white);
+        border-bottom: 1px solid var(--gray-200);
+        box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 72px;
+    }
+
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--navy);
+    }
+
+    .nav-brand img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .nav-brand .brand-text {
+        font-family: 'Playfair Display', serif;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .nav-brand .brand-sub {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 400;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        list-style: none;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: var(--text-light);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .nav-links a:hover { color: var(--navy); }
+    .nav-links a.active { color: var(--burgundy); font-weight: 600; }
+
+    .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--navy);
+        cursor: pointer;
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+        background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
+        color: white;
+        padding: 80px 0 70px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: -40%;
+        right: -15%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(201,167,78,0.1) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .hero .container { position: relative; z-index: 1; }
+
+    .hero-content {
+        max-width: 750px;
+    }
+
+    .hero .eyebrow { color: var(--gold); margin-bottom: 16px; }
+
+    .hero h1 {
+        font-size: 42px;
+        color: white;
+        margin-bottom: 16px;
+        line-height: 1.25;
+    }
+
+    .hero .hero-subtitle {
+        font-size: 18px;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 16px;
+    }
+
+    .hero .hero-desc {
+        font-size: 16px;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .hero .hero-meta {
+        font-size: 14px;
+        color: rgba(255,255,255,0.6);
+        line-height: 1.6;
+    }
+
+    @media (max-width: 991px) {
+        .hero { padding: 60px 0 50px; }
+        .hero h1 { font-size: 32px; }
+    }
+
+    @media (max-width: 767px) {
+        .hero { padding: 50px 0 40px; }
+        .hero h1 { font-size: 26px; }
+        .hero .hero-subtitle { font-size: 16px; }
+        .hero .hero-desc { font-size: 15px; }
+    }
+
+    /* ============================================
+       SECTION COMMON
+       ============================================ */
+    .section {
+        padding: 70px 0;
+    }
+
+    .section.alt { background: var(--white); }
+
+    .section-header {
+        margin-bottom: 48px;
+        text-align: center;
+    }
+
+    .section-header h2 {
+        font-size: 32px;
+        margin-bottom: 12px;
+    }
+
+    .section-header p {
+        font-size: 16px;
+        color: var(--text-light);
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    /* ============================================
+       TIMELINE SECTION
+       ============================================ */
+    .timeline-container {
+        position: relative;
+        padding: 40px 0;
+    }
+
+    .timeline {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(to bottom, var(--gold), var(--gold-dark), var(--gold));
+        transform: translateX(-50%);
+    }
+
+    .timeline-item {
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .timeline-item:nth-child(odd) {
+        align-items: flex-end;
+        padding-right: calc(50% + 30px);
+        text-align: right;
+    }
+
+    .timeline-item:nth-child(even) {
+        align-items: flex-start;
+        padding-left: calc(50% + 30px);
+        text-align: left;
+    }
+
+    .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 24px;
+        height: 24px;
+        background: var(--gold);
+        border: 4px solid white;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 0 0 4px var(--navy);
+        z-index: 10;
+        margin-top: 0;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-dot { margin-right: calc(50% - 12px); }
+    .timeline-item:nth-child(even) .timeline-dot { margin-left: calc(50% - 12px); }
+
+    .timeline-content {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 20px 24px;
+        box-shadow: 0 4px 12px rgba(26,58,92,0.08);
+        transition: all 0.3s ease;
+        max-width: 350px;
+    }
+
+    .timeline-content:hover {
+        box-shadow: 0 8px 24px rgba(26,58,92,0.12);
+        transform: translateY(-2px);
+    }
+
+    .timeline-content .tl-year {
+        font-family: 'Playfair Display', serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--burgundy);
+        margin-bottom: 6px;
+    }
+
+    .timeline-content .tl-ce {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+    }
+
+    .timeline-content .tl-text {
+        font-size: 14px;
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    @media (max-width: 991px) {
+        .timeline::before {
+            left: 30px;
+        }
+
+        .timeline-item {
+            padding-left: 80px !important;
+            text-align: left !important;
+            align-items: flex-start !important;
+        }
+
+        .timeline-dot {
+            left: 30px;
+            margin-right: 0 !important;
+            margin-left: 0 !important;
+        }
+
+        .timeline-content {
+            max-width: 100%;
+        }
+    }
+
+    /* ============================================
+       SCHOOLS GRID
+       ============================================ */
+    .schools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+    }
+
+    .school-history-card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-left: 4px solid var(--gold);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .school-history-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(26,58,92,0.12);
+        border-left-color: var(--burgundy);
+    }
+
+    .school-card-header {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: var(--gray-100);
+        border-bottom: 1px solid var(--gray-200);
+    }
+
+    .school-badge {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        background: var(--navy);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    .school-badge.color-ac { background: #1a5276; }
+    .school-badge.color-acp { background: #117a65; }
+    .school-badge.color-sg { background: #6c3483; }
+    .school-badge.color-mc { background: #b7950b; }
+    .school-badge.color-acs { background: #cb4335; }
+    .school-badge.color-slc { background: #2e86c1; }
+    .school-badge.color-acl { background: #d35400; }
+    .school-badge.color-act { background: #1abc9c; }
+    .school-badge.color-acr { background: #8e44ad; }
+    .school-badge.color-acu { background: #27ae60; }
+    .school-badge.color-acn { background: #e67e22; }
+    .school-badge.color-acsp { background: #2980b9; }
+    .school-badge.color-atn { background: #c0392b; }
+    .school-badge.color-acep { background: #16a085; }
+
+    .school-header-info h3 {
+        font-size: 16px;
+        margin-bottom: 4px;
+        color: var(--navy);
+    }
+
+    .school-header-info .en-name {
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .school-card-body {
+        padding: 20px;
+        display: none;
+    }
+
+    .school-card-body.show { display: block; }
+
+    .school-info-row {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 14px;
+        font-size: 14px;
+    }
+
+    .school-info-row .info-label {
+        font-weight: 600;
+        color: var(--navy);
+        min-width: 80px;
+        flex-shrink: 0;
+    }
+
+    .school-info-row .info-value {
+        color: var(--text-light);
+    }
+
+    .school-color-dot {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        margin-right: 6px;
+        vertical-align: middle;
+    }
+
+    .school-expand-btn {
+        width: 100%;
+        padding: 12px 20px;
+        background: var(--gray-100);
+        border: none;
+        border-top: 1px solid var(--gray-200);
+        cursor: pointer;
+        color: var(--navy);
+        font-weight: 600;
+        font-size: 13px;
+        font-family: 'Sarabun', sans-serif;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .school-expand-btn:hover {
+        background: var(--navy);
+        color: white;
+    }
+
+    .school-expand-btn.expanded .toggle-icon {
+        transform: rotate(180deg);
+    }
+
+    .toggle-icon {
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .detail-section {
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--gray-200);
+    }
+
+    .detail-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .detail-section h5 {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .detail-section p {
+        font-size: 13px;
+        color: var(--text-light);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .detail-section ul {
+        margin: 0;
+        padding-left: 16px;
+    }
+
+    .detail-section li {
+        font-size: 13px;
+        color: var(--text-light);
+        margin-bottom: 6px;
+        line-height: 1.5;
+    }
+
+    /* ============================================
+       REFERENCES SECTION
+       ============================================ */
+    .references-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .reference-card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .reference-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(26,58,92,0.1);
+    }
+
+    .reference-card h4 {
+        font-size: 15px;
+        margin-bottom: 12px;
+        color: var(--navy);
+    }
+
+    .reference-card ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .reference-card li {
+        font-size: 13px;
+        color: var(--text-light);
+        margin-bottom: 8px;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .reference-card li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--gold);
+        font-weight: 700;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+        background: var(--navy-dark);
+        color: rgba(255,255,255,0.75);
+        padding: 60px 0 30px;
+        margin-top: 80px;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    footer h4 {
+        color: white;
+        font-size: 18px;
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--gold);
+        display: inline-block;
+        font-family: 'Playfair Display', serif;
+    }
+
+    footer p { font-size: 14px; line-height: 1.8; margin-bottom: 10px; }
+    footer .fa { color: var(--gold); width: 18px; margin-right: 8px; }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { color: white; }
+
+    .copyright {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(201,167,78,0.3);
+        font-size: 12px;
+        color: rgba(255,255,255,0.5);
+    }
+
+    .back-to-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: var(--navy);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-top: 12px;
+    }
+
+    .back-to-home:hover {
+        background: var(--navy-light);
+        transform: translateX(-4px);
+    }
+
+    @media (max-width: 767px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+        .schools-grid { grid-template-columns: 1fr; }
+        .references-grid { grid-template-columns: 1fr; }
+        .nav-links { gap: 16px; font-size: 12px; }
+    }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================
+         NAVIGATION
+         ============================================ -->
+    <nav class="site-nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index5.html" class="nav-brand">
+                    <i class="fa fa-institution" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a3a5c, #8b0000); color: white; border-radius: 50%; font-size: 20px;"></i>
+                    <div>
+                        <div class="brand-text">Thai Brothers</div>
+                        <div class="brand-sub">THAI BROTHERS NETWORK</div>
+                    </div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index5.html#news">ข่าวสาร</a></li>
+                    <li><a href="index5.html#calendar">ปฏิทิน</a></li>
+                    <li><a href="index5.html#gallery">อัลบั้มภาพ</a></li>
+                    <li><a href="index5.html#schools">โรงเรียน</a></li>
+                    <li><a href="about.html">เกี่ยวกับเรา</a></li>
+                    <li><a href="index5.html#contact">ติดต่อ</a></li>
+                    <li><a href="school-history.html" class="active">ประวัติโรงเรียน</a></li>
+                    <li><a href="strategic-plan.html">แผนยุทธศาสตร์</a></li>
+                </ul>
+                <button class="nav-toggle"><i class="fa fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO
+         ============================================ -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="eyebrow"><i class="fa fa-history"></i> ประวัติศาสตร์</div>
+                <h1>ประวัติโรงเรียนในเครือมูลนิธิฯ — ฉบับสมบูรณ์</h1>
+                <div class="hero-subtitle">History of Schools under the Brothers of Saint Gabriel Foundation of Thailand</div>
+                <div class="hero-desc">
+                    การพัฒนาการศึกษาไทยที่ยิ่งใหญ่นับตั้งแต่สมัยรัชกาลที่ 5 จนถึงปัจจุบัน
+                    ผ่าน 14 สถาบันการศึกษาที่กระจายทั่วประเทศไทย
+                </div>
+                <div class="hero-meta">
+                    <i class="fa fa-calendar-o"></i> 14 สถาบันการศึกษา · จัดทำโดย ฝ่ายทรัพยากรมนุษย์ มูลนิธิคณะภราดาเซนต์คาเบรียลแห่งประเทศไทย · 9 เมษายน พ.ศ. 2569
+                </div>
+                <a href="index5.html" class="back-to-home"><i class="fa fa-arrow-left"></i> กลับหน้าหลัก</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TIMELINE SECTION
+         ============================================ -->
+    <section class="section alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow"><i class="fa fa-clock-o"></i> เหตุการณ์สำคัญ</span>
+                <h2>เส้นเวลาการก่อตั้ง</h2>
+                <p>เหตุการณ์สำคัญของการพัฒนาการศึกษาคู่ขนานตั้งแต่สมัยรัชกาลที่ 5 ถึงปัจจุบัน</p>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2411 / 1868</div>
+                            <div class="tl-text">พระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยู่หัว (รัชกาลที่ 5) ขึ้นครองราชย์ สำเร็จพระราชกิจหลายประการ โดยเฉพาะการปฏิรูปการศึกษา</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2420 / 1877</div>
+                            <div class="tl-text">บาทหลวงกอลอมเบต์ เริ่มสอนนักเรียนในกรุงเทพฯ (จุดเริ่มต้นของโรงเรียนอัสสัมชัญ)</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2428 / 1885</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนอัสสัมชัญ (AC) อย่างเป็นทางการที่บางรัก กรุงเทพฯ</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2444 / 1901</div>
+                            <div class="tl-text">คณะภราดาเซนต์คาเบรียล (Christian Brothers / FSC) เข้ามารับบริหารโรงเรียนอัสสัมชัญ</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2463 / 1920</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนเซนต์คาเบรียล (SG) บริเวณสามเสน กรุงเทพฯ</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2475 / 1932</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนมงฟอร์ตวิทยาลัย (MC) เชียงใหม่</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2487 / 1944</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนอัสสัมชัญศรีราชา (ACS) จังหวัดชลบุรี</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2491 / 1948</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนเซนต์หลุยส์ ฉะเชิงเทรา (SLC) จังหวัดฉะเชิงเทรา</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2500 / 1957</div>
+                            <div class="tl-text">เริ่มก่อตั้งโรงเรียนอัสสัมชัญอุบลราชธานี (ACU) จังหวัดอุบลราชธานี</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2501 / 1958</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนอัสสัมชัญลำปาง (ACL) จังหวัดลำปาง</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2504 / 1961</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนอัสสัมชัญธนบุรี (ACT) บริเวณบางแค กรุงเทพฯ</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2506 / 1963</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนอัสสัมชัญระยอง (ACR) จังหวัดระยอง</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2508 / 1965</div>
+                            <div class="tl-text">ก่อตั้งแผนกประถมของโรงเรียนอัสสัมชัญ (ACP) และโอนโรงเรียนอัสสัมชัญอุบลราชธานีให้คณะฯ บริหารอย่างเป็นทางการ</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2510 / 1967</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนอัสสัมชัญนครราชสีมา (ACN) จังหวัดนครราชสีมา</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2521 / 1978</div>
+                            <div class="tl-text">ก่อตั้งโรงเรียนอัสสัมชัญสมุทรปราการ (ACSP) จังหวัดสมุทรปราการ</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2545 / 2002</div>
+                            <div class="tl-text">เริ่มต้นหลักสูตรภาษาอังกฤษจำนวนมากที่โรงเรียนอัสสัมชัญ (จุดเริ่มต้นของอัสสัมชัญ English Program)</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="tl-year">2555 / 2012</div>
+                            <div class="tl-text">โรงเรียนอัสสัมชัญหลักสูตรภาษาอังกฤษ (ACEP) เปิดวิทยาเขตพระราม 2 สมุทรสาคร</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SCHOOLS GRID
+         ============================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow"><i class="fa fa-university"></i> โรงเรียนในเครือ</span>
+                <h2>14 สถาบันการศึกษา</h2>
+                <p>คลิกเพื่อดูประวัติยาวขอบคุณและเหตุการณ์สำคัญของแต่ละโรงเรียน</p>
+            </div>
+            <div class="schools-grid">
+                <!-- AC -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-ac">AC</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญ</h3>
+                            <div class="en-name">Assumption College</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2428 (ค.ศ. 1885)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">แขวงบางรัก เขตบางรัก กรุงเทพฯ</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ระดับชั้น:</span>
+                            <span class="info-value">มัธยมศึกษาตอนต้น-ปลาย (ม.1-ม.6)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">นักเรียน:</span>
+                            <span class="info-value">ประมาณ 2,500 คน</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญเป็นสถาบันการศึกษาแห่งแรกที่ก่อตั้งโดยคณะภราดาเซนต์คาเบรียลในประเทศไทย ก่อตั้งเมื่อปี พ.ศ. 2428 เป็นเวลาเกือบ 140 ปี ที่โรงเรียนมีบทบาทสำคัญในการพัฒนาการศึกษาของประเทศไทย</p>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ศิษย์เก่าที่มีชื่อเสียง</h5>
+                            <ul>
+                                <li>นายกรัฐมนตรี 4 ท่าน</li>
+                                <li>ธนินท์ เจียรวนนท์ (นักเขียนและวรรณกรรม)</li>
+                                <li>เจริญ สิริวัฒนภักดี (นักเขียน)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ACP -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-acp">ACP</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญ แผนกประถม</h3>
+                            <div class="en-name">Assumption College Primary</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2508 (ค.ศ. 1965)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">ถนนสาทร แขวงสีลม เขตบางรัก กรุงเทพฯ</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ระดับชั้น:</span>
+                            <span class="info-value">ชั้นประถมศึกษา (ป.1-ป.6)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">นักเรียน:</span>
+                            <span class="info-value">2,641 คน</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #1e7e34;"></span>เขียว-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>แผนกประถมของโรงเรียนอัสสัมชัญถูกสร้างขึ้นเพื่อให้บริการการศึกษาระดับประถมศึกษาคุณภาพสูงแก่นักเรียนในพื้นที่ส่วนกลาง</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- SG -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-sg">SG</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนเซนต์คาเบรียล</h3>
+                            <div class="en-name">Saint Gabriel's College</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2463 (ค.ศ. 1920)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">ถนนสามเสน แขวงพญาไท เขตราชเทวี กรุงเทพฯ</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ระดับชั้น:</span>
+                            <span class="info-value">ชั้นประถมศึกษา-มัธยมศึกษาปลาย (ป.1-ม.6)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">นักเรียน:</span>
+                            <span class="info-value">ประมาณ 5,000 คน</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนเซนต์คาเบรียลตั้งขึ้นเพื่อให้บริการการศึกษาแก่นักเรียนชายในระดับประถมและมัธยม ด้วยปรัชญาการศึกษาแบบมงฟอร์ต</p>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ศิษย์เก่าที่มีชื่อเสียง</h5>
+                            <ul>
+                                <li>สมัคร สุนทรเวช (นักแสดงและผู้กำกับ)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- MC -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-mc">MC</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนมงฟอร์ตวิทยาลัย</h3>
+                            <div class="en-name">Montfort College</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2475 (ค.ศ. 1932)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">จังหวัดเชียงใหม่</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ระดับชั้น:</span>
+                            <span class="info-value">ชั้นประถมศึกษา-มัธยมศึกษาปลาย (ป.1-ม.6)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนมงฟอร์ตวิทยาลัย ตั้งขึ้นเพื่อเผยแพร่การศึกษาคุณภาพในภาคเหนือของประเทศไทย เป็นแหล่งการศึกษาสำคัญของจังหวัดเชียงใหม่และพื้นที่ใกล้เคียง</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ACS -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-acs">ACS</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญศรีราชา</h3>
+                            <div class="en-name">Assumption College Sriracha</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2487 (ค.ศ. 1944)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">จังหวัดชลบุรี</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ระดับชั้น:</span>
+                            <span class="info-value">ชั้นประถมศึกษา-มัธยมศึกษาปลาย (ป.1-ม.6)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญศรีราชา ตั้งขึ้นในช่วงสงคราม ตั้งแต่นั้นมาก็มีบทบาทสำคัญในการพัฒนาการศึกษาของจังหวัดชลบุรีและพื้นที่ใกล้เคียง</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- SLC -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-slc">SLC</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนเซนต์หลุยส์ ฉะเชิงเทรา</h3>
+                            <div class="en-name">Saint Louis Chachoengsao</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2491 (ค.ศ. 1948)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">จังหวัดฉะเชิงเทรา</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #0066cc;"></span>ฟ้า-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนเซนต์หลุยส์ ฉะเชิงเทรา ก่อตั้งเพื่อให้บริการการศึกษาแก่นักเรียนในพื้นที่ชายฝั่งตะวันออก</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ACL -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-acl">ACL</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญลำปาง</h3>
+                            <div class="en-name">Assumption College Lampang</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2501 (ค.ศ. 1958)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">จังหวัดลำปาง</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญลำปาง ก่อตั้งขึ้นเพื่อสนับสนุนการศึกษาในภาคเหนือตอนล่าง</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ACT -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-act">ACT</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญธนบุรี</h3>
+                            <div class="en-name">Assumption College Thonburi</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2504 (ค.ศ. 1961)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">แขวงบางแค เขตธนบุรี กรุงเทพฯ</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญธนบุรี ก่อตั้งเพื่อให้บริการการศึกษาแก่นักเรียนในพื้นที่ตะวันตกของกรุงเทพฯ</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ACR -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-acr">ACR</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญระยอง</h3>
+                            <div class="en-name">Assumption College Rayong</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2506 (ค.ศ. 1963)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">จังหวัดระยอง</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญระยอง ก่อตั้งขึ้นเพื่อตอบสนองความต้องการการศึกษาของจังหวัดระยอง</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ACU -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-acu">ACU</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญอุบลราชธานี</h3>
+                            <div class="en-name">Assumption College Ubon Ratchathani</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2508 (ค.ศ. 1965)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">จังหวัดอุบลราชธานี</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญอุบลราชธานี ก่อตั้งเพื่อเผยแพร่การศึกษาคุณภาพในภาคอีสาน</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ACN -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-acn">ACN</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญนครราชสีมา</h3>
+                            <div class="en-name">Assumption College Nakhon Ratchasima</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2510 (ค.ศ. 1967)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">จังหวัดนครราชสีมา</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญนครราชสีมา ก่อตั้งขึ้นเพื่อให้บริการการศึกษาแก่นักเรียนในศูนย์กลางภาคอีสาน</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ACSP -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-acsp">ACSP</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญสมุทรปราการ</h3>
+                            <div class="en-name">Assumption College Samutprakarn</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ก่อตั้ง:</span>
+                            <span class="info-value">พ.ศ. 2521 (ค.ศ. 1978)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">จังหวัดสมุทรปราการ</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญสมุทรปราการ ก่อตั้งเพื่อให้บริการการศึกษาแก่นักเรียนในพื้นที่ใกล้กับกรุงเทพฯ</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ATN -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-atn">ATN</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญเทคนิคนครพนม</h3>
+                            <div class="en-name">Assumption Technical Nakhon Phanom</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">จังหวัดนครพนม</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #003366;"></span>น้ำเงิน-ขาว</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญเทคนิคนครพนม เป็นสถาบันการศึกษาเทคนิคที่ให้บริการแก่นักเรียนในภาคอีสาน</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+
+                <!-- ACEP -->
+                <div class="school-history-card">
+                    <div class="school-card-header">
+                        <div class="school-badge color-acep">ACEP</div>
+                        <div class="school-header-info">
+                            <h3>โรงเรียนอัสสัมชัญหลักสูตรภาษาอังกฤษ</h3>
+                            <div class="en-name">Assumption College English Program</div>
+                        </div>
+                    </div>
+                    <div class="school-card-body">
+                        <div class="school-info-row">
+                            <span class="info-label">เริ่มต้น:</span>
+                            <span class="info-value">พ.ศ. 2545 (หลักสูตร), พ.ศ. 2555 (วิทยาเขต)</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">ที่ตั้ง:</span>
+                            <span class="info-value">พระราม 2, สมุทรสาคร</span>
+                        </div>
+                        <div class="school-info-row">
+                            <span class="info-label">สีประจำ:</span>
+                            <span class="info-value"><span class="school-color-dot" style="background: #ce1126;"></span>แดง-ทอง</span>
+                        </div>
+                        <div class="detail-section">
+                            <h5>ประวัติย่อ</h5>
+                            <p>โรงเรียนอัสสัมชัญหลักสูตรภาษาอังกฤษ (ACEP) เริ่มต้นเป็นหลักสูตรเฉพาะภายในโรงเรียนอัสสัมชัญ และขยายตัวเป็นวิทยาเขตแยกในปี พ.ศ. 2555 เพื่อสนับสนุนการศึกษาที่มีความเหนือกว่าทางด้านภาษาอังกฤษ</p>
+                        </div>
+                    </div>
+                    <button class="school-expand-btn" onclick="toggleSchoolCard(this)">
+                        ข้อมูลเพิ่มเติม
+                        <span class="toggle-icon"><i class="fa fa-chevron-down"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         REFERENCES SECTION
+         ============================================ -->
+    <section class="section alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow"><i class="fa fa-book"></i> แหล่งอ้างอิง</span>
+                <h2>แหล่งข้อมูลประวัติศาสตร์</h2>
+                <p>แหล่งข้อมูลที่นำมาใช้ในการจัดทำประวัติโรงเรียนในเครือ</p>
+            </div>
+            <div class="references-grid">
+                <div class="reference-card">
+                    <h4><i class="fa fa-graduation-cap"></i> เอกสารการศึกษา</h4>
+                    <ul>
+                        <li>แผนพัฒนาการจัดการศึกษาของโรงเรียนในเครือ (2565-2570)</li>
+                        <li>รายงานประจำปีของแต่ละโรงเรียน</li>
+                        <li>เอกสารประกาศตั้งโรงเรียนและสำนักนายกรัฐมนตรี</li>
+                        <li>ประกาศพระราชกฤษฎีกาว่าด้วยการตั้งสถานศึกษา</li>
+                    </ul>
+                </div>
+                <div class="reference-card">
+                    <h4><i class="fa fa-link"></i> เว็บไซต์และท้องถิ่น</h4>
+                    <ul>
+                        <li>เว็บไซต์ประจำโรงเรียนแต่ละแห่ง</li>
+                        <li>Wikipedia (ภาษาไทยและภาษาอังกฤษ)</li>
+                        <li>LiCAS.news และสื่ออื่นๆ</li>
+                        <li>เว็บไซต์สำนักเขต/อำเภอและจังหวัด</li>
+                    </ul>
+                </div>
+                <div class="reference-card">
+                    <h4><i class="fa fa-sitemap"></i> ระบบการบริหาร</h4>
+                    <ul>
+                        <li>โผแต่งตั้งโยกย้าย (Transfer/Obedience) ย้อนหลัง 10 ปี (พ.ศ. 2560-2569)</li>
+                        <li>ข้อมูลจากระบบ SWIS (School Wing Information System)</li>
+                        <li>ทะเบียนปกครองของมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย</li>
+                        <li>คู่มือปฏิบัติของแขวงไทยและมูลนิธิฯ</li>
+                    </ul>
+                </div>
+                <div class="reference-card">
+                    <h4><i class="fa fa-globe"></i> เครือข่ายสากล</h4>
+                    <ul>
+                        <li>Montfortian Network (มงฟอร์ตเวิลด์ไวด์)</li>
+                        <li>St. Gabriel Foundation (Rome)</li>
+                        <li>SWIS Plus นักพัฒนาระบบข้อมูลบริหารการศึกษา</li>
+                        <li>International Montfortian Association</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>ติดต่อเรา</h4>
+                    <p><i class="fa fa-map-marker"></i> อาคารมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย<br>
+                       2 ซอยแสงเงิน (ทองหล่อ 25) ถนนสุขุมวิท 55<br>
+                       แขวงคลองตันเหนือ เขตวัฒนา กรุงเทพฯ 10110</p>
+                    <p><i class="fa fa-phone"></i> (02) 712-9010 · โทรสาร (02) 390-2292</p>
+                    <p><i class="fa fa-envelope"></i> swiscenter@gmail.com</p>
+                </div>
+                <div>
+                    <h4>Thai Brothers Network</h4>
+                    <p>
+                        เว็บไซต์นี้เป็นศูนย์กลางเชื่อมโยงข้อมูลจากระบบ SWIS
+                        ของโรงเรียนในเครือมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย
+                        ดูแลโดย ฝ่ายเทคโนโลยีสารสนเทศเพื่อการบริหารและการศึกษา
+                    </p>
+                    <p>
+                        <a href="about.html"><i class="fa fa-info-circle"></i> เกี่ยวกับเรา</a>
+                    </p>
+                </div>
+                <div>
+                    <h4>เว็บไซต์ในเครือ</h4>
+                    <p><a href="https://www.montfortian.net" target="_blank"><i class="fa fa-globe"></i> montfortian.net</a></p>
+                    <p><a href="https://fsgthailand.org" target="_blank"><i class="fa fa-globe"></i> fsgthailand.org</a></p>
+                    <p><a href="https://swisplus.com" target="_blank"><i class="fa fa-globe"></i> swisplus.com</a></p>
+                    <p><a href="montfortian-stream.html"><i class="fa fa-stream"></i> สายธารพันธกิจ — The Montfortian Stream</a></p>
+                </div>
+            </div>
+            <div class="copyright">
+                Copyright &copy; thaibrothers.net 2004–2026 · swiscenter@gmail.com
+                &nbsp;·&nbsp;
+                Part of <a href="https://www.montfortian.net" target="_blank">Montfortian Network</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+    function toggleSchoolCard(btn) {
+        const card = btn.closest('.school-history-card');
+        const body = card.querySelector('.school-card-body');
+
+        body.classList.toggle('show');
+        btn.classList.toggle('expanded');
+    }
+
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (toggle) {
+            toggle.addEventListener('click', function() {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+    });
+    </script>
+
+</body>
+</html>

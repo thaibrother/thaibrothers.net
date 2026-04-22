@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events Calendar — Redesign Proposals</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Sarabun:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --navy: #1a3a5c;
+    --navy-dark: #0d2640;
+    --navy-light: #2c5f8a;
+    --burgundy: #8b0000;
+    --burgundy-light: #a52a2a;
+    --gold: #c9a74e;
+    --gold-light: #e4c878;
+    --cream: #fafaf7;
+    --white: #ffffff;
+    --gray-50: #f8f9fa;
+    --gray-100: #f1f3f5;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --text: #2a2a2a;
+    --text-light: #5a5a5a;
+    --text-muted: #8a8a8a;
+    --shadow-sm: 0 2px 8px rgba(26,58,92,0.06);
+    --shadow-md: 0 4px 20px rgba(26,58,92,0.08);
+    --shadow-lg: 0 12px 40px rgba(26,58,92,0.12);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Sarabun', 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+}
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', 'Sarabun', serif;
+    color: var(--navy);
+    line-height: 1.3;
+}
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.proposal-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color: white;
+    padding: 60px 0 50px;
+    text-align: center;
+    position: relative;
+}
+.proposal-header::after {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--burgundy) 50%, var(--gold) 100%);
+}
+.proposal-header h1 { color: white; font-size: 36px; margin-bottom: 10px; }
+.proposal-header p { color: rgba(255,255,255,0.8); font-size: 16px; max-width: 700px; margin: 0 auto; }
+.proposal-divider {
+    background: var(--navy);
+    color: white;
+    padding: 40px 0 30px;
+    margin: 80px 0 0;
+    position: relative;
+}
+.proposal-divider::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--gold);
+}
+.proposal-divider .label {
+    font-size: 12px; letter-spacing: 4px; color: var(--gold);
+    text-transform: uppercase; font-weight: 600; margin-bottom: 8px;
+}
+.proposal-divider h2 { color: white; font-size: 32px; margin-bottom: 8px; }
+.proposal-divider .desc { color: rgba(255,255,255,0.75); font-size: 15px; max-width: 760px; }
+
+/* =============== SHARED STYLES =============== */
+.section-title-block {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--burgundy);
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 6px 16px;
+    border: 1px solid var(--burgundy);
+    border-radius: 20px;
+    margin-bottom: 14px;
+}
+.section-title-block h2 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+.section-title-block p {
+    font-size: 15px;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* School colors — each school has own accent */
+.s-AC   { --s-color: #c41e3a; } /* red */
+.s-ACP  { --s-color: #8B0000; }
+.s-SG   { --s-color: #1a3a5c; } /* navy */
+.s-MC   { --s-color: #800080; } /* purple */
+.s-ACS  { --s-color: #0066cc; }
+.s-SLC  { --s-color: #228b22; }
+.s-ACL  { --s-color: #daa520; } /* gold */
+.s-ACT  { --s-color: #4b0082; }
+.s-ACR  { --s-color: #ff6347; }
+.s-ACU  { --s-color: #20b2aa; }
+.s-ACN  { --s-color: #cd5c5c; }
+.s-ACSP { --s-color: #4682b4; }
+.s-ATN  { --s-color: #556b2f; }
+.s-ACEP { --s-color: #8b4513; }
+.s-MCS  { --s-color: #2e8b57; }
+.s-MCP  { --s-color: #b8860b; }
+.s-BSG  { --s-color: #1a3a5c; }
+
+/* Event type colors */
+.t-academic    { background: #e3f2fd; color: #0d47a1; }
+.t-sport       { background: #fff3e0; color: #e65100; }
+.t-religious   { background: #f3e5f5; color: #4a148c; }
+.t-pastoral    { background: #e8f5e9; color: #1b5e20; }
+.t-cultural    { background: #fff8e1; color: #f57f17; }
+.t-admin       { background: #eceff1; color: #263238; }
+.t-ceremony    { background: #fce4ec; color: #880e4f; }
+
+
+/* ================================================
+   PROPOSAL A — TIMELINE VERTICAL
+   ================================================ */
+.option-a {
+    padding: 70px 0 100px;
+    background: var(--cream);
+}
+.filter-bar {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    padding: 12px;
+    background: var(--white);
+    border-radius: 100px;
+    max-width: 760px;
+    margin: 0 auto 50px;
+    box-shadow: var(--shadow-md);
+}
+.filter-btn {
+    padding: 12px 26px;
+    border-radius: 100px;
+    background: transparent;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all .25s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.filter-btn:hover { background: var(--gray-100); color: var(--navy); }
+.filter-btn.active {
+    background: var(--burgundy);
+    color: white;
+    box-shadow: 0 4px 12px rgba(139,0,0,0.3);
+}
+.filter-btn .badge {
+    background: rgba(255,255,255,0.25);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.filter-btn:not(.active) .badge {
+    background: var(--burgundy);
+    color: white;
+}
+
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 60px;
+}
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--burgundy) 100%);
+}
+.timeline-day {
+    position: relative;
+    margin-bottom: 40px;
+}
+.timeline-day::before {
+    content: "";
+    position: absolute;
+    left: -44px;
+    top: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--burgundy);
+    box-shadow: 0 0 0 4px var(--cream);
+    z-index: 2;
+}
+.day-label {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+.day-label .day-num {
+    font-size: 18px;
+    color: white;
+    margin-right: 6px;
+}
+.event-card-a {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 22px 26px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 14px;
+    display: flex;
+    gap: 20px;
+    border-left: 5px solid var(--s-color, var(--navy));
+    transition: all .3s;
+    position: relative;
+}
+.event-card-a:hover {
+    transform: translateX(6px);
+    box-shadow: var(--shadow-lg);
+}
+.event-time-block {
+    flex-shrink: 0;
+    text-align: center;
+    padding-right: 20px;
+    border-right: 1px dashed var(--gray-200);
+    min-width: 80px;
+}
+.event-time-block .time {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+}
+.event-time-block .duration {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+.event-body { flex: 1; }
+.event-body h4 {
+    font-size: 17px;
+    margin-bottom: 6px;
+    color: var(--navy);
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+}
+.event-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.event-meta .school-badge {
+    background: var(--s-color, var(--navy));
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+.event-meta .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.event-meta i { color: var(--text-muted); }
+.event-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ================================================
+   PROPOSAL B — MAGAZINE CARD GRID
+   ================================================ */
+.option-b {
+    padding: 70px 0 100px;
+    background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+}
+.segmented-tabs {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    margin-bottom: 50px;
+    border-bottom: 2px solid var(--gray-200);
+    padding-bottom: 0;
+}
+.tab {
+    padding: 16px 32px;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: inherit;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+.tab:hover { color: var(--navy); }
+.tab.active {
+    color: var(--burgundy);
+    border-bottom-color: var(--burgundy);
+}
+.tab .count {
+    background: var(--gray-100);
+    color: var(--text);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.tab.active .count { background: var(--burgundy); color: white; }
+
+.schools-filter {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+.school-chip {
+    padding: 8px 16px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.school-chip::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--s-color, var(--navy));
+}
+.school-chip:hover {
+    border-color: var(--s-color, var(--navy));
+    color: var(--navy);
+}
+.school-chip.active {
+    background: var(--s-color, var(--navy));
+    border-color: var(--s-color, var(--navy));
+    color: white;
+}
+.school-chip.active::before { background: white; }
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+.event-card-b {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all .35s;
+    border-top: 4px solid var(--s-color, var(--navy));
+    position: relative;
+}
+.event-card-b:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+.card-header {
+    padding: 18px 22px 16px;
+    background: linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.02) 100%);
+    border-bottom: 1px solid var(--gray-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.card-date-block {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+.date-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: var(--s-color, var(--navy));
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    flex-shrink: 0;
+}
+.date-circle .d-day {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+.date-circle .d-month {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+.date-info .day-name {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+.date-info .time-info {
+    font-size: 16px;
+    color: var(--navy);
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    margin-top: 2px;
+}
+.school-pill {
+    background: var(--s-color, var(--navy));
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.card-body {
+    padding: 20px 22px 22px;
+}
+.card-body h4 {
+    font-size: 17px;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.4;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+}
+.card-body p {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+.card-footer-meta {
+    display: flex;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    padding-top: 14px;
+    border-top: 1px dashed var(--gray-200);
+}
+.card-footer-meta .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.card-tag-wrap {
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* ================================================
+   PROPOSAL C — NEWSPAPER DASHBOARD
+   ================================================ */
+.option-c {
+    padding: 70px 0 100px;
+    background: var(--navy);
+    color: white;
+    position: relative;
+}
+.option-c::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--gold);
+}
+.option-c .section-title-block h2 { color: white; }
+.option-c .section-title-block p { color: rgba(255,255,255,0.75); }
+.option-c .eyebrow {
+    color: var(--gold);
+    border-color: var(--gold);
+}
+
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+.featured-event {
+    background: linear-gradient(135deg, var(--burgundy) 0%, #5a0000 100%);
+    border-radius: 14px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.featured-event::before {
+    content: "";
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+    opacity: 0.15;
+}
+.featured-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy-dark);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+.featured-event h3 {
+    color: white;
+    font-size: 28px;
+    line-height: 1.3;
+    margin-bottom: 14px;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+}
+.featured-event .feat-desc {
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 24px;
+    line-height: 1.7;
+}
+.featured-event .feat-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+.feat-meta-item { display: flex; gap: 12px; align-items: center; }
+.feat-meta-item i {
+    color: var(--gold);
+    font-size: 20px;
+    width: 30px;
+    text-align: center;
+}
+.feat-meta-item .label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.feat-meta-item .value {
+    font-size: 14px;
+    color: white;
+    font-weight: 600;
+}
+
+.mini-events-list {
+    background: rgba(255,255,255,0.05);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+.mini-events-header {
+    padding: 20px 26px;
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mini-events-header h4 {
+    color: white;
+    font-size: 17px;
+    font-family: 'Playfair Display', serif;
+}
+.view-all-link {
+    color: var(--gold);
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.mini-event {
+    padding: 20px 26px;
+    display: flex;
+    gap: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    transition: background .2s;
+    align-items: flex-start;
+}
+.mini-event:last-child { border-bottom: none; }
+.mini-event:hover { background: rgba(255,255,255,0.03); }
+.mini-date {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 8px 0;
+    width: 56px;
+    border-right: 2px solid var(--s-color, var(--gold));
+    padding-right: 14px;
+}
+.mini-date .d {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+}
+.mini-date .m {
+    font-size: 11px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+.mini-content { flex: 1; }
+.mini-content h5 {
+    color: white;
+    font-size: 15px;
+    margin-bottom: 6px;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+    line-height: 1.4;
+}
+.mini-content .mini-meta {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.mini-content .mini-school {
+    background: var(--s-color, var(--navy));
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+.stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 30px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.stat-box {
+    padding: 22px;
+    text-align: center;
+    background: var(--navy);
+}
+.stat-box .num {
+    font-size: 32px;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1;
+}
+.stat-box .lbl {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ================================================
+   FOOTER
+   ================================================ */
+.proposal-footer {
+    background: var(--navy-dark);
+    color: white;
+    padding: 60px 0 40px;
+    text-align: center;
+}
+.proposal-footer h3 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+.proposal-footer p {
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+    margin: 0 auto 24px;
+}
+
+@media (max-width: 900px) {
+    .dashboard-layout { grid-template-columns: 1fr; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    .event-card-a { flex-direction: column; }
+    .event-time-block { border-right: none; border-bottom: 1px dashed var(--gray-200); padding-bottom: 12px; padding-right: 0; }
+    .featured-event h3 { font-size: 22px; }
+    .featured-event .feat-meta { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="proposal-header">
+    <h1>Events Calendar — 3 Redesign Proposals</h1>
+    <p>ออกแบบใหม่ section "ปฏิทินกิจกรรม" ของ thaibrothers.net — นำเสนอ 3 แนวทาง เพื่อเลือกแบบที่ชอบ</p>
+</div>
+
+<!-- ==================== OPTION A ==================== -->
+<div class="proposal-divider">
+    <div class="container">
+        <div class="label">Proposal A</div>
+        <h2>Timeline View — ไทม์ไลน์แนวตั้ง</h2>
+        <p class="desc">จัดกิจกรรมตามลำดับเวลา เหมาะกับคนที่อยากรู้ว่า "วันนี้มีอะไรบ้าง" — อ่านง่าย เรียงตามวัน/เวลา เห็นโรงเรียนเจ้าของกิจกรรมจากสีแถบข้าง</p>
+    </div>
+</div>
+
+<section class="option-a">
+    <div class="container">
+        <div class="section-title-block">
+            <span class="eyebrow">Activity Timeline</span>
+            <h2>ปฏิทินกิจกรรมเครือข่าย</h2>
+            <p>ติดตามกิจกรรมของ 14 โรงเรียนในเครือมูลนิธิฯ อย่างต่อเนื่อง</p>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn"><i class="fa-regular fa-calendar"></i> Today <span class="badge">4</span></button>
+            <button class="filter-btn active"><i class="fa-regular fa-calendar-plus"></i> Tomorrow <span class="badge">6</span></button>
+            <button class="filter-btn"><i class="fa-regular fa-calendar-check"></i> This Week <span class="badge">18</span></button>
+            <button class="filter-btn"><i class="fa-solid fa-calendar-days"></i> Next 10 Days <span class="badge">32</span></button>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-day">
+                <div class="day-label"><span class="day-num">11</span> APR · SAT</div>
+
+                <div class="event-card-a s-ACR">
+                    <div class="event-time-block">
+                        <div class="time">08:30</div>
+                        <div class="duration">2 hrs</div>
+                    </div>
+                    <div class="event-body">
+                        <h4>กิจกรรมเสริมทักษะประสบการณ์พิเศษภาคฤดูร้อน</h4>
+                        <p style="font-size:13px;color:var(--text-light);margin:6px 0;">นักเรียน ม.ปลาย เข้าค่ายภาษาอังกฤษ &amp; STEM ร่วมกับครูต่างชาติ</p>
+                        <div class="event-meta">
+                            <span class="school-badge">ACR — ระยอง</span>
+                            <span class="meta-item"><i class="fa-solid fa-location-dot"></i> Auditorium ชั้น 3</span>
+                            <span class="meta-item"><i class="fa-solid fa-users"></i> 180 คน</span>
+                            <span class="event-tag t-academic">วิชาการ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card-a s-MCS">
+                    <div class="event-time-block">
+                        <div class="time">09:00</div>
+                        <div class="duration">Full day</div>
+                    </div>
+                    <div class="event-body">
+                        <h4>งานขอบคุณครูเกษียณอายุการทำงาน และงานเลี้ยงปิดปีการศึกษา 2568</h4>
+                        <p style="font-size:13px;color:var(--text-light);margin:6px 0;">พิธีมอบของที่ระลึกและขอบคุณครู 12 ท่านที่เกษียณอายุในปีการศึกษานี้</p>
+                        <div class="event-meta">
+                            <span class="school-badge">MCS — เชียงใหม่</span>
+                            <span class="meta-item"><i class="fa-solid fa-location-dot"></i> หอประชุม มงฟอร์ต</span>
+                            <span class="meta-item"><i class="fa-solid fa-user-tie"></i> คณะครู+ผู้บริหาร</span>
+                            <span class="event-tag t-ceremony">พิธีการ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card-a s-MCP">
+                    <div class="event-time-block">
+                        <div class="time">13:00</div>
+                        <div class="duration">4 hrs</div>
+                    </div>
+                    <div class="event-body">
+                        <h4>กิจกรรมวันสงกรานต์ ปี๋ใหม่เมือง 2569</h4>
+                        <p style="font-size:13px;color:var(--text-light);margin:6px 0;">สืบสานประเพณีล้านนา รดน้ำดำหัวครูอาวุโส การแสดงฟ้อนเล็บ</p>
+                        <div class="event-meta">
+                            <span class="school-badge">MCP — มงฟอร์ต แผนกประถม</span>
+                            <span class="meta-item"><i class="fa-solid fa-location-dot"></i> สนามโรงเรียน</span>
+                            <span class="event-tag t-cultural">วัฒนธรรม</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-day">
+                <div class="day-label"><span class="day-num">12</span> APR · SUN</div>
+
+                <div class="event-card-a s-BSG">
+                    <div class="event-time-block">
+                        <div class="time">07:00</div>
+                        <div class="duration">1 hr</div>
+                    </div>
+                    <div class="event-body">
+                        <h4>พิธีบูชาขอบพระคุณ Palm Sunday</h4>
+                        <p style="font-size:13px;color:var(--text-light);margin:6px 0;">พิธีมิสซาเสกใบลาน เริ่มสัปดาห์ศักดิ์สิทธิ์ บ้านนักบวชทุกแห่งเข้าร่วม</p>
+                        <div class="event-meta">
+                            <span class="school-badge">มูลนิธิฯ</span>
+                            <span class="meta-item"><i class="fa-solid fa-church"></i> วัดนักบุญเปโตร ทองหล่อ</span>
+                            <span class="event-tag t-religious">ศาสนา</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card-a s-ACL">
+                    <div class="event-time-block">
+                        <div class="time">09:00</div>
+                        <div class="duration">3 hrs</div>
+                    </div>
+                    <div class="event-body">
+                        <h4>Summer Course 2026 — Day 1</h4>
+                        <p style="font-size:13px;color:var(--text-light);margin:6px 0;">เปิดหลักสูตรฤดูร้อน: คณิต-วิทย์-อังกฤษ-coding สำหรับ ป.4–ม.3</p>
+                        <div class="event-meta">
+                            <span class="school-badge">ACL — ลำปาง</span>
+                            <span class="meta-item"><i class="fa-solid fa-location-dot"></i> อาคารเรียนรวม</span>
+                            <span class="meta-item"><i class="fa-solid fa-users"></i> 260 คน</span>
+                            <span class="event-tag t-academic">วิชาการ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-day">
+                <div class="day-label"><span class="day-num">13</span> APR · MON</div>
+
+                <div class="event-card-a s-ACT">
+                    <div class="event-time-block">
+                        <div class="time">08:00</div>
+                        <div class="duration">All day</div>
+                    </div>
+                    <div class="event-body">
+                        <h4>ACT Summer Camp 2026 วันเปิดค่าย</h4>
+                        <p style="font-size:13px;color:var(--text-light);margin:6px 0;">ค่ายกีฬา-ดนตรี-ศิลปะ 5 วัน สำหรับนักเรียน ป.1-ม.6</p>
+                        <div class="event-meta">
+                            <span class="school-badge">ACT — ธนบุรี</span>
+                            <span class="meta-item"><i class="fa-solid fa-location-dot"></i> โรงเรียนอัสสัมชัญธนบุรี</span>
+                            <span class="event-tag t-sport">กีฬา/สันทนาการ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card-a s-ACP">
+                    <div class="event-time-block">
+                        <div class="time">10:00</div>
+                        <div class="duration">2 hrs</div>
+                    </div>
+                    <div class="event-body">
+                        <h4>พิธีรดน้ำดำหัวผู้ใหญ่ ACP ประจำปี 2569</h4>
+                        <p style="font-size:13px;color:var(--text-light);margin:6px 0;">พิธีสืบสานประเพณีสงกรานต์สำหรับคณะครูและผู้บริหาร</p>
+                        <div class="event-meta">
+                            <span class="school-badge">ACP — อัสสัมชัญ ประถม</span>
+                            <span class="meta-item"><i class="fa-solid fa-location-dot"></i> หอประชุมใหญ่</span>
+                            <span class="event-tag t-cultural">วัฒนธรรม</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== OPTION B ==================== -->
+<div class="proposal-divider">
+    <div class="container">
+        <div class="label">Proposal B</div>
+        <h2>Magazine Card Grid — การ์ดแนวแมกกาซีน</h2>
+        <p class="desc">จัดแบบการ์ดแต่ละกิจกรรมเป็นเอกเทศ โชว์วัน เวลา สถานที่ ประเภทงาน ครบในใบเดียว — เหมาะกับการ browse แบบสำรวจ แต่ละ card สีของโรงเรียนต่างกัน</p>
+    </div>
+</div>
+
+<section class="option-b">
+    <div class="container">
+        <div class="section-title-block">
+            <span class="eyebrow">Upcoming Activities</span>
+            <h2>ปฏิทินกิจกรรมเครือข่าย</h2>
+            <p>14 โรงเรียนในเครือมูลนิธิฯ — กิจกรรมทั้งหมดในที่เดียว</p>
+        </div>
+
+        <div class="segmented-tabs">
+            <button class="tab">วันนี้ <span class="count">4</span></button>
+            <button class="tab active">พรุ่งนี้ <span class="count">6</span></button>
+            <button class="tab">สัปดาห์นี้ <span class="count">18</span></button>
+            <button class="tab">10 วันข้างหน้า <span class="count">32</span></button>
+        </div>
+
+        <div class="schools-filter">
+            <div class="school-chip active s-AC">ทั้งหมด</div>
+            <div class="school-chip s-AC">AC</div>
+            <div class="school-chip s-ACP">ACP</div>
+            <div class="school-chip s-SG">SG</div>
+            <div class="school-chip s-MC">MC</div>
+            <div class="school-chip s-ACS">ACS</div>
+            <div class="school-chip s-SLC">SLC</div>
+            <div class="school-chip s-ACL">ACL</div>
+            <div class="school-chip s-ACT">ACT</div>
+            <div class="school-chip s-ACR">ACR</div>
+            <div class="school-chip s-ACU">ACU</div>
+            <div class="school-chip s-ACN">ACN</div>
+            <div class="school-chip s-ACSP">ACSP</div>
+            <div class="school-chip s-ATN">ATN</div>
+            <div class="school-chip s-ACEP">ACEP</div>
+        </div>
+
+        <div class="event-grid">
+            <div class="event-card-b s-ACR">
+                <div class="card-header">
+                    <div class="card-date-block">
+                        <div class="date-circle">
+                            <div class="d-day">11</div>
+                            <div class="d-month">APR</div>
+                        </div>
+                        <div class="date-info">
+                            <div class="day-name">วันเสาร์</div>
+                            <div class="time-info">08:30 – 10:30</div>
+                        </div>
+                    </div>
+                    <div class="school-pill">ACR</div>
+                </div>
+                <div class="card-body">
+                    <h4>กิจกรรมเสริมทักษะประสบการณ์พิเศษภาคฤดูร้อน</h4>
+                    <p>นักเรียน ม.ปลาย เข้าค่ายภาษาอังกฤษ STEM ร่วมกับครูต่างชาติ เน้นทักษะศตวรรษที่ 21</p>
+                    <div class="card-footer-meta">
+                        <span class="meta-item"><i class="fa-solid fa-location-dot"></i> Auditorium 3</span>
+                        <span class="meta-item"><i class="fa-solid fa-users"></i> 180 คน</span>
+                    </div>
+                    <div class="card-tag-wrap">
+                        <span class="event-tag t-academic">วิชาการ</span>
+                        <span class="event-tag t-cultural">ภาคฤดูร้อน</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card-b s-MCS">
+                <div class="card-header">
+                    <div class="card-date-block">
+                        <div class="date-circle">
+                            <div class="d-day">11</div>
+                            <div class="d-month">APR</div>
+                        </div>
+                        <div class="date-info">
+                            <div class="day-name">วันเสาร์</div>
+                            <div class="time-info">09:00 – 16:00</div>
+                        </div>
+                    </div>
+                    <div class="school-pill">MCS</div>
+                </div>
+                <div class="card-body">
+                    <h4>งานขอบคุณครูเกษียณ และงานเลี้ยงปิดปีการศึกษา 2568</h4>
+                    <p>พิธีมอบของที่ระลึกและขอบคุณครู 12 ท่านที่เกษียณอายุในปีการศึกษานี้ ณ หอประชุมใหญ่</p>
+                    <div class="card-footer-meta">
+                        <span class="meta-item"><i class="fa-solid fa-location-dot"></i> หอประชุมมงฟอร์ต</span>
+                        <span class="meta-item"><i class="fa-solid fa-user-tie"></i> คณะครู</span>
+                    </div>
+                    <div class="card-tag-wrap">
+                        <span class="event-tag t-ceremony">พิธีการ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card-b s-MCP">
+                <div class="card-header">
+                    <div class="card-date-block">
+                        <div class="date-circle">
+                            <div class="d-day">11</div>
+                            <div class="d-month">APR</div>
+                        </div>
+                        <div class="date-info">
+                            <div class="day-name">วันเสาร์</div>
+                            <div class="time-info">13:00 – 17:00</div>
+                        </div>
+                    </div>
+                    <div class="school-pill">MCP</div>
+                </div>
+                <div class="card-body">
+                    <h4>กิจกรรมวันสงกรานต์ ปี๋ใหม่เมือง 2569</h4>
+                    <p>สืบสานประเพณีล้านนา รดน้ำดำหัวครูอาวุโส การแสดงฟ้อนเล็บ ของนักเรียนประถม</p>
+                    <div class="card-footer-meta">
+                        <span class="meta-item"><i class="fa-solid fa-location-dot"></i> สนามโรงเรียน</span>
+                        <span class="meta-item"><i class="fa-solid fa-child"></i> ป.1–ป.6</span>
+                    </div>
+                    <div class="card-tag-wrap">
+                        <span class="event-tag t-cultural">วัฒนธรรม</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card-b s-ACL">
+                <div class="card-header">
+                    <div class="card-date-block">
+                        <div class="date-circle">
+                            <div class="d-day">12</div>
+                            <div class="d-month">APR</div>
+                        </div>
+                        <div class="date-info">
+                            <div class="day-name">วันอาทิตย์</div>
+                            <div class="time-info">09:00 – 12:00</div>
+                        </div>
+                    </div>
+                    <div class="school-pill">ACL</div>
+                </div>
+                <div class="card-body">
+                    <h4>Summer Course 2026 — Day 1</h4>
+                    <p>เปิดหลักสูตรฤดูร้อน: คณิต-วิทย์-อังกฤษ-coding สำหรับ ป.4–ม.3 ต่อเนื่อง 20 วัน</p>
+                    <div class="card-footer-meta">
+                        <span class="meta-item"><i class="fa-solid fa-location-dot"></i> อาคารเรียนรวม</span>
+                        <span class="meta-item"><i class="fa-solid fa-users"></i> 260 คน</span>
+                    </div>
+                    <div class="card-tag-wrap">
+                        <span class="event-tag t-academic">วิชาการ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card-b s-ACT">
+                <div class="card-header">
+                    <div class="card-date-block">
+                        <div class="date-circle">
+                            <div class="d-day">13</div>
+                            <div class="d-month">APR</div>
+                        </div>
+                        <div class="date-info">
+                            <div class="day-name">วันจันทร์</div>
+                            <div class="time-info">08:00 – 17:00</div>
+                        </div>
+                    </div>
+                    <div class="school-pill">ACT</div>
+                </div>
+                <div class="card-body">
+                    <h4>ACT Summer Camp 2026 — วันเปิดค่าย</h4>
+                    <p>ค่ายกีฬา-ดนตรี-ศิลปะ 5 วัน สำหรับนักเรียน ป.1-ม.6 พร้อมโค้ชและวิทยากรรับเชิญ</p>
+                    <div class="card-footer-meta">
+                        <span class="meta-item"><i class="fa-solid fa-location-dot"></i> โรงเรียน ACT</span>
+                        <span class="meta-item"><i class="fa-solid fa-calendar-day"></i> 5 วัน</span>
+                    </div>
+                    <div class="card-tag-wrap">
+                        <span class="event-tag t-sport">กีฬา</span>
+                        <span class="event-tag t-cultural">สันทนาการ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card-b s-BSG">
+                <div class="card-header">
+                    <div class="card-date-block">
+                        <div class="date-circle">
+                            <div class="d-day">12</div>
+                            <div class="d-month">APR</div>
+                        </div>
+                        <div class="date-info">
+                            <div class="day-name">วันอาทิตย์</div>
+                            <div class="time-info">07:00 – 08:00</div>
+                        </div>
+                    </div>
+                    <div class="school-pill">มูลนิธิฯ</div>
+                </div>
+                <div class="card-body">
+                    <h4>พิธีบูชาขอบพระคุณ Palm Sunday</h4>
+                    <p>พิธีมิสซาเสกใบลาน เริ่มสัปดาห์ศักดิ์สิทธิ์ บ้านนักบวชทุกแห่งเข้าร่วม</p>
+                    <div class="card-footer-meta">
+                        <span class="meta-item"><i class="fa-solid fa-church"></i> วัดนักบุญเปโตร ทองหล่อ</span>
+                    </div>
+                    <div class="card-tag-wrap">
+                        <span class="event-tag t-religious">ศาสนา</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== OPTION C ==================== -->
+<div class="proposal-divider">
+    <div class="container">
+        <div class="label">Proposal C</div>
+        <h2>Newspaper Dashboard — แนวหนังสือพิมพ์ / Dashboard</h2>
+        <p class="desc">ไฮไลท์กิจกรรม "เด่นประจำวัน" ขึ้นใหญ่ด้านซ้าย + รายการย่อด้านขวา + stats แถบล่าง — เหมาะกับการสื่อสารเชิง "วันนี้มีอะไรสำคัญบ้าง" แบบ news feed</p>
+    </div>
+</div>
+
+<section class="option-c">
+    <div class="container">
+        <div class="section-title-block">
+            <span class="eyebrow">Daily Brief</span>
+            <h2>ปฏิทินกิจกรรมเครือข่าย</h2>
+            <p>ภาพรวมกิจกรรมจากทั้ง 14 โรงเรียนในเครือมูลนิธิฯ — Updated เรียลไทม์ผ่าน SWIS</p>
+        </div>
+
+        <div class="dashboard-layout">
+            <!-- Featured Event -->
+            <div class="featured-event">
+                <span class="featured-badge">⭐ กิจกรรมเด่นประจำวัน</span>
+                <h3>พิธีบูชาขอบพระคุณ Palm Sunday &amp; เริ่มสัปดาห์ศักดิ์สิทธิ์</h3>
+                <p class="feat-desc">พิธีมิสซาเสกใบลาน เริ่มสัปดาห์ศักดิ์สิทธิ์ของปีศักดิ์สิทธิ์ บ้านนักบวชทุกแห่งในแขวงประเทศไทยเข้าร่วมพร้อมกัน ประธานโดย ฯพณฯ พระสังฆราช</p>
+                <div class="feat-meta">
+                    <div class="feat-meta-item">
+                        <i class="fa-regular fa-calendar"></i>
+                        <div>
+                            <div class="label">Date</div>
+                            <div class="value">12 เม.ย. · Sun</div>
+                        </div>
+                    </div>
+                    <div class="feat-meta-item">
+                        <i class="fa-regular fa-clock"></i>
+                        <div>
+                            <div class="label">Time</div>
+                            <div class="value">07:00 – 08:30</div>
+                        </div>
+                    </div>
+                    <div class="feat-meta-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <div class="label">Venue</div>
+                            <div class="value">วัดนักบุญเปโตร ทองหล่อ</div>
+                        </div>
+                    </div>
+                    <div class="feat-meta-item">
+                        <i class="fa-solid fa-users"></i>
+                        <div>
+                            <div class="label">Participants</div>
+                            <div class="value">ภราดาทั่วแขวง</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mini Events List -->
+            <div class="mini-events-list">
+                <div class="mini-events-header">
+                    <h4>กิจกรรมถัดไปในเครือข่าย</h4>
+                    <a href="#" class="view-all-link">ดูทั้งหมด →</a>
+                </div>
+
+                <div class="mini-event s-ACR">
+                    <div class="mini-date">
+                        <div class="d">11</div>
+                        <div class="m">APR</div>
+                    </div>
+                    <div class="mini-content">
+                        <h5>กิจกรรมเสริมทักษะภาคฤดูร้อน</h5>
+                        <div class="mini-meta">
+                            <span class="mini-school">ACR</span>
+                            <span>08:30</span>
+                            <span>Auditorium 3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mini-event s-MCS">
+                    <div class="mini-date">
+                        <div class="d">11</div>
+                        <div class="m">APR</div>
+                    </div>
+                    <div class="mini-content">
+                        <h5>งานขอบคุณครูเกษียณ 2568</h5>
+                        <div class="mini-meta">
+                            <span class="mini-school">MCS</span>
+                            <span>09:00</span>
+                            <span>หอประชุมมงฟอร์ต</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mini-event s-MCP">
+                    <div class="mini-date">
+                        <div class="d">11</div>
+                        <div class="m">APR</div>
+                    </div>
+                    <div class="mini-content">
+                        <h5>กิจกรรมวันสงกรานต์ ปี๋ใหม่เมือง</h5>
+                        <div class="mini-meta">
+                            <span class="mini-school">MCP</span>
+                            <span>13:00</span>
+                            <span>สนามโรงเรียน</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mini-event s-ACL">
+                    <div class="mini-date">
+                        <div class="d">12</div>
+                        <div class="m">APR</div>
+                    </div>
+                    <div class="mini-content">
+                        <h5>Summer Course 2026 — Day 1</h5>
+                        <div class="mini-meta">
+                            <span class="mini-school">ACL</span>
+                            <span>09:00</span>
+                            <span>อาคารเรียนรวม</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mini-event s-ACT">
+                    <div class="mini-date">
+                        <div class="d">13</div>
+                        <div class="m">APR</div>
+                    </div>
+                    <div class="mini-content">
+                        <h5>ACT Summer Camp 2026</h5>
+                        <div class="mini-meta">
+                            <span class="mini-school">ACT</span>
+                            <span>08:00</span>
+                            <span>5 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-strip">
+            <div class="stat-box">
+                <div class="num">4</div>
+                <div class="lbl">กิจกรรมวันนี้</div>
+            </div>
+            <div class="stat-box">
+                <div class="num">18</div>
+                <div class="lbl">สัปดาห์นี้</div>
+            </div>
+            <div class="stat-box">
+                <div class="num">32</div>
+                <div class="lbl">10 วันข้างหน้า</div>
+            </div>
+            <div class="stat-box">
+                <div class="num">14</div>
+                <div class="lbl">โรงเรียนที่มีกิจกรรม</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="proposal-footer">
+    <div class="container">
+        <h3>เลือกแบบที่ชอบ — ผมจะ implement ต่อ</h3>
+        <p>ทั้ง 3 แบบใช้ design token เดียวกัน (Navy + Burgundy + Gold) และจะเชื่อมกับข้อมูลจริงจาก SWIS ผ่าน jlayer2 endpoint เดิมของระบบ สามารถผสมผสานองค์ประกอบ เช่น ใช้ Timeline + Filter จาก A แต่ดึง card style จาก B ได้</p>
+        <p style="margin-top:20px;color:var(--gold);font-weight:600;">A = Timeline  ·  B = Magazine Grid  ·  C = Dashboard</p>
+    </div>
+</div>
+
+</body>
+</html>

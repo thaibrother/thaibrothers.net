@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เกี่ยวกับเรา — Thai Brothers</title>
+    <meta name="description" content="เกี่ยวกับ thaibrothers.net — เว็บไซต์กลางของฝ่ายเทคโนโลยีสารสนเทศเพื่อการบริหารและการศึกษา มูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย">
+
+    <!-- Bootstrap 3 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Sarabun:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+    :root {
+        --navy: #1a3a5c;
+        --navy-dark: #0d2640;
+        --navy-light: #2c5f8a;
+        --burgundy: #8b0000;
+        --gold: #c9a74e;
+        --gold-dark: #8b6914;
+        --cream: #fafaf7;
+        --white: #ffffff;
+        --gray-50: #f8f9fa;
+        --gray-100: #f1f3f5;
+        --gray-200: #e9ecef;
+        --gray-400: #ced4da;
+        --gray-600: #6c757d;
+        --text: #2a2a2a;
+        --text-light: #5a5a5a;
+        --text-muted: #8a8a8a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Sarabun', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        color: var(--text);
+        line-height: 1.8;
+        background-color: var(--cream);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+        font-family: 'Playfair Display', 'Sarabun', serif;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.3;
+    }
+
+    a { transition: all 0.3s ease; }
+
+    /* ============================================
+       NAVIGATION BAR
+       ============================================ */
+    .top-nav {
+        background: var(--white);
+        border-bottom: 1px solid var(--gray-200);
+        box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        padding: 20px 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .top-nav .container {
+        max-width: 1100px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .top-nav .brand {
+        font-family: 'Playfair Display', serif;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--navy);
+        text-decoration: none;
+    }
+
+    .top-nav .brand:hover { color: var(--burgundy); text-decoration: none; }
+
+    .top-nav .back-link {
+        font-size: 14px;
+        color: var(--text-light);
+        text-decoration: none;
+    }
+
+    .top-nav .back-link:hover { color: var(--navy); text-decoration: none; }
+    .top-nav .back-link .fa { margin-right: 6px; }
+
+    /* ============================================
+       HERO BANNER
+       ============================================ */
+    .about-hero {
+        background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--navy-light) 100%);
+        color: white;
+        padding: 80px 0 70px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(201,167,78,0.08) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .about-hero .container { max-width: 800px; position: relative; z-index: 1; }
+
+    .about-hero .eyebrow {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 20px;
+    }
+
+    .about-hero h1 {
+        font-size: 36px;
+        color: white;
+        margin-bottom: 12px;
+    }
+
+    .about-hero .subtitle {
+        font-size: 18px;
+        color: rgba(255,255,255,0.75);
+        font-weight: 300;
+        margin-bottom: 30px;
+    }
+
+    .about-hero .lead-text {
+        font-size: 16px;
+        color: rgba(255,255,255,0.88);
+        line-height: 2;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    /* ============================================
+       CONTENT SECTIONS
+       ============================================ */
+    .about-section {
+        padding: 70px 0;
+    }
+
+    .about-section .container { max-width: 860px; }
+
+    .about-section.alt { background: var(--white); }
+
+    .section-eyebrow {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--gold-dark);
+        margin-bottom: 14px;
+    }
+
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 24px;
+    }
+
+    .section-body {
+        font-size: 16px;
+        color: var(--text-light);
+        line-height: 2;
+    }
+
+    .section-body p { margin-bottom: 20px; }
+
+    .section-body strong { color: var(--text); }
+
+    /* ============================================
+       QUOTE BLOCK
+       ============================================ */
+    .quote-block {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+        color: white;
+        padding: 60px 0;
+        text-align: center;
+    }
+
+    .quote-block .container { max-width: 700px; }
+
+    .quote-block blockquote {
+        font-family: 'Playfair Display', serif;
+        font-size: 22px;
+        font-style: italic;
+        line-height: 1.6;
+        border: none;
+        margin: 0;
+        padding: 0;
+        color: rgba(255,255,255,0.95);
+    }
+
+    .quote-block blockquote::before {
+        content: '\201C';
+        font-size: 60px;
+        color: var(--gold);
+        display: block;
+        margin-bottom: 10px;
+        line-height: 1;
+    }
+
+    .quote-block cite {
+        display: block;
+        font-family: 'Sarabun', sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        color: var(--gold);
+        margin-top: 20px;
+        letter-spacing: 1px;
+    }
+
+    /* ============================================
+       ROLE CARDS
+       ============================================ */
+    .role-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+        margin-top: 30px;
+    }
+
+    .role-card {
+        background: var(--cream);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 28px 24px;
+        border-top: 3px solid var(--gold);
+        transition: all 0.3s ease;
+    }
+
+    .role-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(26,58,92,0.1);
+    }
+
+    .role-card .role-icon {
+        font-size: 28px;
+        color: var(--navy);
+        margin-bottom: 14px;
+    }
+
+    .role-card h4 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 600;
+    }
+
+    .role-card p {
+        font-size: 14px;
+        color: var(--text-light);
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* ============================================
+       STATS BAR
+       ============================================ */
+    .stats-bar {
+        background: var(--navy);
+        padding: 50px 0;
+    }
+
+    .stats-bar .container { max-width: 1000px; }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 30px;
+        text-align: center;
+    }
+
+    .stat-item .stat-number {
+        font-family: 'Playfair Display', serif;
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1.2;
+    }
+
+    .stat-item .stat-label {
+        font-size: 13px;
+        color: rgba(255,255,255,0.7);
+        margin-top: 6px;
+        line-height: 1.5;
+    }
+
+    /* ============================================
+       NETWORK LINKS
+       ============================================ */
+    .network-section {
+        padding: 60px 0;
+        background: var(--white);
+    }
+
+    .network-section .container { max-width: 860px; }
+
+    .network-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .network-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 24px;
+        background: var(--cream);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--text);
+        border-left: 4px solid var(--gold);
+        transition: all 0.3s ease;
+    }
+
+    .network-card:hover {
+        background: white;
+        border-left-color: var(--burgundy);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(26,58,92,0.1);
+        text-decoration: none;
+        color: var(--text);
+    }
+
+    .network-card .fa {
+        font-size: 24px;
+        color: var(--navy);
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border-radius: 50%;
+        flex-shrink: 0;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .network-card:hover .fa { color: var(--burgundy); }
+
+    .network-card .nw-info h4 {
+        font-size: 15px;
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .network-card:hover .nw-info h4 { color: var(--burgundy); }
+
+    .network-card .nw-info .nw-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.5;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+        background: var(--navy-dark);
+        color: rgba(255,255,255,0.75);
+        padding: 40px 0;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { color: white; text-decoration: none; }
+
+    footer .footer-line { margin-bottom: 8px; }
+    footer .footer-line:last-child { margin-bottom: 0; }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    /* ============================================
+       SWIS & PDCA SECTION
+       ============================================ */
+    .swis-highlight {
+        background: var(--white);
+        padding: 70px 0;
+    }
+
+    .swis-highlight .container { max-width: 860px; }
+
+    .pdca-flow {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 30px;
+        counter-reset: step;
+    }
+
+    .pdca-step {
+        position: relative;
+        background: var(--cream);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 22px 20px 20px;
+        transition: all 0.3s ease;
+    }
+
+    .pdca-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(26,58,92,0.08);
+    }
+
+    .pdca-step .step-num {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: white;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    .pdca-step.plan .step-num { background: var(--navy); }
+    .pdca-step.do .step-num { background: #2d7d46; }
+    .pdca-step.check .step-num { background: var(--gold-dark); }
+    .pdca-step.act .step-num { background: var(--burgundy); }
+
+    .pdca-step .step-phase {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+
+    .pdca-step.plan .step-phase { color: var(--navy); }
+    .pdca-step.do .step-phase { color: #2d7d46; }
+    .pdca-step.check .step-phase { color: var(--gold-dark); }
+    .pdca-step.act .step-phase { color: var(--burgundy); }
+
+    .pdca-step h4 {
+        font-size: 14px;
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: var(--text);
+    }
+
+    .pdca-step p {
+        font-size: 13px;
+        color: var(--text-light);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .swis-diagram {
+        margin-top: 40px;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+        border-radius: 12px;
+        padding: 36px 32px;
+        color: white;
+    }
+
+    .swis-diagram h3 {
+        color: var(--gold);
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .chain-flow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .chain-item {
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 8px;
+        padding: 12px 18px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    .chain-arrow {
+        font-size: 18px;
+        color: var(--gold);
+        font-weight: 700;
+    }
+
+    @media (max-width: 767px) {
+        .pdca-flow { grid-template-columns: 1fr; }
+        .swis-diagram { padding: 28px 20px; }
+        .chain-flow { flex-direction: column; }
+        .chain-arrow { transform: rotate(90deg); }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .pdca-flow { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 767px) {
+        .about-hero { padding: 60px 0 50px; }
+        .about-hero h1 { font-size: 28px; }
+        .about-hero .subtitle { font-size: 16px; }
+        .about-section { padding: 50px 0; }
+        .section-title { font-size: 24px; }
+        .role-grid { grid-template-columns: 1fr; }
+        .network-grid { grid-template-columns: 1fr; }
+        .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .stat-item .stat-number { font-size: 28px; }
+        .quote-block blockquote { font-size: 18px; }
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="top-nav">
+        <div class="container">
+            <a href="index.html" class="brand">Thai Brothers</a>
+            <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> กลับหน้าหลัก</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="about-hero">
+        <div class="container">
+            <span class="eyebrow">About Us</span>
+            <h1>เกี่ยวกับ thaibrothers.net</h1>
+            <div class="subtitle">ฝ่ายเทคโนโลยีสารสนเทศเพื่อการบริหารและการศึกษา<br>มูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย</div>
+            <p class="lead-text">
+                เว็บไซต์นี้เป็นศูนย์กลางการเชื่อมโยงข้อมูลข่าวสาร ภาพกิจกรรม ปฏิทิน
+                และผลการดำเนินงานของโรงเรียนในเครือมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย
+                โดยดึงข้อมูลจากระบบ SWIS (School Web-based Information System)
+                ของแต่ละโรงเรียนมาแสดงผลเป็นภาพรวมในที่เดียว
+            </p>
+        </div>
+    </section>
+
+    <!-- ทำไมต้องมีเว็บนี้ -->
+    <section class="about-section">
+        <div class="container">
+            <span class="section-eyebrow">ความเป็นมา</span>
+            <h2 class="section-title">ทำไมต้องมี thaibrothers.net</h2>
+            <div class="section-body">
+                <p>
+                    มูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย ดำเนินภารกิจด้านการศึกษาสืบสานจิตตารมณ์ของนักบุญหลุยส์ มารี กรีญอง เดอ มงฟอร์ต
+                    มาตั้งแต่ปี ค.ศ. 1901 ปัจจุบันมีโรงเรียนในเครือ <strong>14 แห่งทั่วประเทศ</strong>
+                    แต่ละโรงเรียนมีระบบสารสนเทศ SWIS เป็นเครื่องมือบริหารจัดการภายใน
+                </p>
+                <p>
+                    <strong>thaibrothers.net</strong> ทำหน้าที่เป็น <strong>หน้าต่างสู่ภายนอก</strong>
+                    ที่ดึงข้อมูลจาก SWIS ของทุกโรงเรียนมารวมกัน ให้ผู้ปกครอง ศิษย์เก่า ผู้สนใจ
+                    และบุคลากรภายในเครือข่าย สามารถเห็นภาพรวมของกิจกรรม ข่าวสาร และความเคลื่อนไหว
+                    ของโรงเรียนทั้ง 14 แห่งได้จากที่เดียว
+                </p>
+                <p>
+                    เว็บไซต์นี้อยู่ภายใต้การดูแลของ <strong>ฝ่ายเทคโนโลยีสารสนเทศเพื่อการบริหารและการศึกษา</strong>
+                    ซึ่งเป็นหนึ่งในหน่วยงานระดับมูลนิธิฯ มีหน้าที่กำกับดูแลระบบสารสนเทศ
+                    การสื่อสาร และเครือข่ายเทคโนโลยีของโรงเรียนทั้ง 14 แห่ง
+                    สอดคล้องกับ <strong>ยุทธศาสตร์ที่ 3</strong> ของแผนยุทธศาสตร์มูลนิธิฯ
+                    ว่าด้วยการพัฒนาระบบเทคโนโลยีสารสนเทศและการสื่อสารเพื่อการบริหารและการจัดการเรียนรู้
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE -->
+    <div class="quote-block">
+        <div class="container">
+            <blockquote>
+                สิ่งใดที่ทำเพื่อพระเป็นเจ้า จะไม่มีวันสูญเสีย
+            </blockquote>
+            <cite>— นักบุญหลุยส์ มารี กรีญอง เดอ มงฟอร์ต</cite>
+        </div>
+    </div>
+
+    <!-- SWIS & PDCA -->
+    <section class="swis-highlight">
+        <div class="container">
+            <span class="section-eyebrow">หัวใจของระบบ</span>
+            <h2 class="section-title">ขับเคลื่อนด้วย SWIS และแผนงาน PDCA</h2>
+            <div class="section-body">
+                <p>
+                    โรงเรียนทั้ง 14 แห่งในเครือมูลนิธิฯ ใช้ระบบ <strong>SWIS (School Web-based Information System)</strong>
+                    เป็นเครื่องมือหลักในการขับเคลื่อนงานและกิจกรรมทุกประเภท
+                    ทุกแผนงานถูกบันทึก ติดตาม และประเมินผลบนแพลตฟอร์มเดียวกันทั้งเครือข่าย
+                </p>
+                <p>
+                    หัวใจของระบบคือ <strong>โมดูลแผนงาน PDCA 9 ขั้นตอน</strong>
+                    ที่มูลนิธิฯ ออกแบบขึ้นเอง เพื่อให้ทุกหน่วยงานในโรงเรียน
+                    วางแผน ปฏิบัติ ตรวจสอบ และปรับปรุงคุณภาพงานอย่างเป็นระบบ
+                    ครอบคลุมตั้งแต่การกำหนดเป้าหมายไปจนถึงการประเมินผลและปรับปรุงต่อเนื่อง
+                    ซึ่งเป็นกระบวนการเฉพาะที่พัฒนามาจากประสบการณ์บริหารสถานศึกษากว่า 25 ปี
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- สิ่งที่จะพบบนเว็บนี้ -->
+    <section class="about-section alt">
+        <div class="container">
+            <span class="section-eyebrow">เนื้อหาบนเว็บไซต์</span>
+            <h2 class="section-title">สิ่งที่จะพบบน thaibrothers.net</h2>
+            <div class="role-grid">
+                <div class="role-card">
+                    <div class="role-icon"><i class="fa fa-newspaper-o"></i></div>
+                    <h4>ข่าวสารจาก 14 โรงเรียน</h4>
+                    <p>ข่าวสารและกิจกรรมล่าสุดจากทุกโรงเรียนในเครือ ดึงข้อมูลจากระบบ SWIS ของแต่ละโรงเรียนมาแสดงผลแบบเรียลไทม์</p>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon"><i class="fa fa-camera"></i></div>
+                    <h4>ภาพกิจกรรม</h4>
+                    <p>รวมภาพบรรยากาศกิจกรรมสำคัญจากโรงเรียนทั่วประเทศ ทั้งงานวิชาการ กีฬา ศาสนา และกิจกรรมเพื่อสังคม</p>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon"><i class="fa fa-calendar"></i></div>
+                    <h4>ปฏิทินกิจกรรม</h4>
+                    <p>ปฏิทินรวมกิจกรรมของโรงเรียนในเครือและมูลนิธิฯ ให้เห็นภาพรวมตลอดปีการศึกษา</p>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon"><i class="fa fa-university"></i></div>
+                    <h4>โรงเรียนในเครือ</h4>
+                    <p>ข้อมูลพื้นฐานและลิงก์ไปยังเว็บไซต์ของโรงเรียนทั้ง 14 แห่ง จากกรุงเทพฯ ถึงเชียงใหม่ ลำปาง ระยอง และนครพนม</p>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon"><i class="fa fa-database"></i></div>
+                    <h4>ระบบ SWIS</h4>
+                    <p>ข้อมูลเกี่ยวกับระบบ School Web-based Information System ที่เชื่อมโยงข้อมูลการบริหารจัดการของทุกโรงเรียนเข้าด้วยกัน</p>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon"><i class="fa fa-sitemap"></i></div>
+                    <h4>แผนงาน 5 กลุ่มงาน ICT</h4>
+                    <p>แผนงานของฝ่ายเทคโนโลยีสารสนเทศมูลนิธิฯ ทั้ง 5 กลุ่มงาน ตั้งแต่การบริหาร การพัฒนาซอฟต์แวร์ สื่อสาร เครือข่าย และพัฒนาบุคลากร</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">125+</div>
+                    <div class="stat-label">ปีแห่งพันธกิจในไทย<br>ตั้งแต่ ค.ศ. 1901</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">14</div>
+                    <div class="stat-label">โรงเรียนในเครือ<br>ทั่วประเทศไทย</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">60,000+</div>
+                    <div class="stat-label">นักเรียนปัจจุบัน<br>ในเครือมูลนิธิฯ</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">220</div>
+                    <div class="stat-label">ฟังก์ชัน SWIS<br>เชื่อมโยงข้อมูลกลาง</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ใครดูแลเว็บนี้ -->
+    <section class="about-section">
+        <div class="container">
+            <span class="section-eyebrow">ผู้ดูแล</span>
+            <h2 class="section-title">ฝ่ายเทคโนโลยีสารสนเทศเพื่อการบริหารและการศึกษา</h2>
+            <div class="section-body">
+                <p>
+                    เว็บไซต์ thaibrothers.net อยู่ภายใต้การกำกับดูแลของ
+                    <strong>ฝ่ายเทคโนโลยีสารสนเทศเพื่อการบริหารและการศึกษา มูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย</strong>
+                    ซึ่งรับผิดชอบงาน 5 กลุ่มหลัก ได้แก่
+                    งานบริหารฝ่าย, งานพัฒนาโปรแกรมและสารสนเทศ, งานสื่อสารมวลชน,
+                    งานเครือข่ายและอุปกรณ์ และงานพัฒนาบุคลากร ICT
+                </p>
+                <p>
+                    ส่วนระบบ SWIS ที่เป็นแหล่งข้อมูลหลักของเว็บไซต์นี้
+                    พัฒนาโดย <strong>บริษัท SWIS Plus จำกัด</strong>
+                    ซึ่งเป็นบริษัทในเครือที่รับจ้างพัฒนาซอฟต์แวร์ให้กับฝ่ายเทคโนโลยีสารสนเทศมูลนิธิฯ
+                    มีประสบการณ์พัฒนาระบบสารสนเทศสำหรับสถานศึกษามากว่า 25 ปี
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- เครือข่ายที่เกี่ยวข้อง -->
+    <section class="network-section">
+        <div class="container">
+            <span class="section-eyebrow">เครือข่าย</span>
+            <h2 class="section-title">เว็บไซต์ที่เกี่ยวข้อง</h2>
+            <div class="network-grid">
+                <a href="https://montfortian.net" target="_blank" class="network-card">
+                    <i class="fa fa-book"></i>
+                    <div class="nw-info">
+                        <h4>montfortian.net</h4>
+                        <div class="nw-desc">งานเขียนของนักบุญมงฟอร์ตและเอกสารอ้างอิงของคณะฯ</div>
+                    </div>
+                </a>
+                <a href="https://swisplus.com" target="_blank" class="network-card">
+                    <i class="fa fa-code"></i>
+                    <div class="nw-info">
+                        <h4>swisplus.com</h4>
+                        <div class="nw-desc">บริษัท SWIS Plus — ผู้พัฒนาระบบ SWIS</div>
+                    </div>
+                </a>
+                <a href="https://www.stgabrielinst.org" target="_blank" class="network-card">
+                    <i class="fa fa-globe"></i>
+                    <div class="nw-info">
+                        <h4>stgabrielinst.org</h4>
+                        <div class="nw-desc">ศูนย์กลางใหญ่ คณะเซนต์คาเบรียล กรุงโรม</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-line">
+                <strong style="color: white;">thaibrothers.net</strong> —
+                ฝ่ายเทคโนโลยีสารสนเทศเพื่อการบริหารและการศึกษา
+            </div>
+            <div class="footer-line">
+                มูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย
+            </div>
+            <div class="footer-line" style="margin-top: 10px;">
+                <a href="https://www.montfortian.net" target="_blank">montfortian.net</a> ·
+                <a href="https://fsgthailand.org" target="_blank">fsgthailand.org</a> ·
+                <a href="https://swisplus.com" target="_blank">swisplus.com</a> ·
+                <a href="montfortian-stream.html">สายธารพันธกิจ</a>
+            </div>
+            <div class="footer-line" style="margin-top: 14px; font-size: 13px; color: rgba(255,255,255,0.5);">
+                &copy; 2025 Foundation of the Brothers of St. Gabriel of Thailand
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Brothers — เครือข่ายโรงเรียนในเครือมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย</title>
+    <meta name="description" content="ศูนย์กลางข่าวสาร กิจกรรม ปฏิทิน และภาพจาก 14 โรงเรียนในเครือมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย ขับเคลื่อนด้วยระบบ SWIS">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Sarabun:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+    /* ============================================
+       DESIGN SYSTEM
+       ============================================ */
+    :root {
+        --navy: #1a3a5c;
+        --navy-dark: #0d2640;
+        --navy-light: #2c5f8a;
+        --burgundy: #8b0000;
+        --gold: #c9a74e;
+        --gold-dark: #8b6914;
+        --cream: #fafaf7;
+        --white: #ffffff;
+        --gray-100: #f1f3f5;
+        --gray-200: #e9ecef;
+        --gray-400: #ced4da;
+        --gray-600: #6c757d;
+        --text: #2a2a2a;
+        --text-light: #5a5a5a;
+        --text-muted: #8a8a8a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Sarabun', 'Inter', sans-serif;
+        color: var(--text);
+        line-height: 1.7;
+        background: var(--cream);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+        font-family: 'Playfair Display', 'Sarabun', serif;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.3;
+    }
+
+    a { transition: all 0.3s ease; }
+    img { max-width: 100%; height: auto; }
+
+    .container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .eyebrow {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--gold-dark);
+        margin-bottom: 12px;
+    }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .site-nav {
+        background: var(--white);
+        border-bottom: 1px solid var(--gray-200);
+        box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 72px;
+    }
+
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--navy);
+    }
+
+    .nav-brand img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .nav-brand .brand-text {
+        font-family: 'Playfair Display', serif;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .nav-brand .brand-sub {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 400;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        list-style: none;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: var(--text-light);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .nav-links a:hover { color: var(--navy); }
+
+    .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--navy);
+        cursor: pointer;
+    }
+
+    /* ============================================
+       ROME CALENDAR — integrated with navy theme
+       ============================================ */
+    .rome-cal {
+        background: var(--navy-dark);
+        padding: 0;
+    }
+
+    .rome-cal-inner {
+        display: flex;
+        align-items: stretch;
+        min-height: 56px;
+    }
+
+    .rome-cal-date {
+        background: linear-gradient(135deg, var(--burgundy) 0%, #6d0000 100%);
+        color: white;
+        padding: 14px 28px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+        font-family: 'Playfair Display', serif;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .rome-cal-date .cross {
+        font-size: 20px;
+        opacity: 0.8;
+    }
+
+    .rome-cal-items {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 24px;
+        flex-wrap: wrap;
+        flex: 1;
+    }
+
+    .rome-cal-items .rc-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: rgba(255,255,255,0.85);
+        padding: 5px 14px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+        white-space: nowrap;
+    }
+
+    .rome-cal-items .rc-tag .rc-label {
+        color: var(--gold);
+        font-weight: 600;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 767px) {
+        .rome-cal-inner { flex-direction: column; }
+        .rome-cal-date { padding: 12px 20px; font-size: 14px; justify-content: center; }
+        .rome-cal-items { padding: 10px 16px; justify-content: center; }
+        .rome-cal-items .rc-tag { font-size: 11px; padding: 4px 10px; }
+    }
+
+    /* ============================================
+       RANDOM PHOTO BANNER
+       ============================================ */
+    .photo-banner {
+        position: relative;
+        height: 420px;
+        overflow: hidden;
+        background: var(--navy-dark);
+    }
+
+    .photo-banner .pb-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+    .photo-banner .pb-img.active { opacity: 1; }
+
+    .photo-banner::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            rgba(13,38,64,0.15) 0%,
+            rgba(13,38,64,0.05) 40%,
+            rgba(13,38,64,0.5) 80%,
+            rgba(13,38,64,0.85) 100%
+        );
+        z-index: 1;
+    }
+
+    .pb-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        padding: 32px 0;
+    }
+
+    .pb-content .container {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+
+    .pb-info {
+        color: white;
+    }
+
+    .pb-info .pb-school {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(8px);
+        padding: 5px 14px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .pb-info .pb-title {
+        font-family: 'Sarabun', sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 4px;
+    }
+
+    .pb-info .pb-date {
+        font-size: 13px;
+        color: rgba(255,255,255,0.6);
+    }
+
+    .pb-dots {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .pb-dots .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: all 0.3s ease;
+    }
+
+    .pb-dots .dot.active {
+        background: var(--gold);
+        width: 28px;
+        border-radius: 5px;
+    }
+
+    @media (max-width: 991px) {
+        .photo-banner { height: 340px; }
+        .pb-info .pb-title { font-size: 18px; }
+    }
+
+    @media (max-width: 767px) {
+        .photo-banner { height: 280px; }
+        .pb-content { padding: 24px 0; }
+        .pb-content .container { flex-direction: column; align-items: flex-start; gap: 14px; }
+        .pb-info .pb-title { font-size: 16px; }
+        .pb-info .pb-school { font-size: 10px; }
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+        background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
+        color: white;
+        padding: 80px 0 70px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: -40%;
+        right: -15%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(201,167,78,0.1) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .hero .container { position: relative; z-index: 1; }
+
+    .hero-content {
+        max-width: 640px;
+    }
+
+    .hero .eyebrow { color: var(--gold); margin-bottom: 16px; }
+
+    .hero h1 {
+        font-size: 38px;
+        color: white;
+        margin-bottom: 16px;
+        line-height: 1.25;
+    }
+
+    .hero .hero-desc {
+        font-size: 17px;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.8;
+        margin-bottom: 28px;
+    }
+
+    .hero-stats {
+        display: flex;
+        gap: 40px;
+        margin-top: 10px;
+    }
+
+    .hero-stat .stat-num {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--gold);
+    }
+
+    .hero-stat .stat-lbl {
+        font-size: 13px;
+        color: rgba(255,255,255,0.6);
+        margin-top: 2px;
+    }
+
+    /* ============================================
+       SECTION COMMON
+       ============================================ */
+    .section {
+        padding: 70px 0;
+    }
+
+    .section.alt { background: var(--white); }
+
+    .section-header {
+        margin-bottom: 36px;
+    }
+
+    .section-header h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .section-header p {
+        font-size: 15px;
+        color: var(--text-light);
+    }
+
+    .section-header .view-all-link {
+        float: right;
+        font-size: 14px;
+        color: var(--navy-light);
+        text-decoration: none;
+        font-weight: 500;
+        margin-top: 8px;
+    }
+
+    .section-header .view-all-link:hover { color: var(--burgundy); }
+
+    /* ============================================
+       NEWS GRID
+       ============================================ */
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .news-card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .section.alt .news-card { background: var(--cream); }
+
+    .news-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(26,58,92,0.1);
+    }
+
+    .news-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .news-card .card-body {
+        padding: 20px;
+    }
+
+    .news-card .card-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .news-card .school-tag {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 4px;
+        background: var(--navy);
+        color: white;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .news-card .card-date {
+        font-size: 12px;
+        color: var(--text-muted);
+    }
+
+    .news-card h4 {
+        font-size: 15px;
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 600;
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+
+    .news-card p {
+        font-size: 13px;
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    /* ============================================
+       SWIS HIGHLIGHT BAR
+       ============================================ */
+    .swis-bar {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+        padding: 50px 0;
+        color: white;
+    }
+
+    .swis-bar-inner {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+    }
+
+    .swis-bar-text {
+        flex: 1;
+    }
+
+    .swis-bar-text h2 {
+        color: white;
+        font-size: 24px;
+        margin-bottom: 12px;
+    }
+
+    .swis-bar-text p {
+        font-size: 15px;
+        color: rgba(255,255,255,0.75);
+        line-height: 1.8;
+    }
+
+    .swis-bar-text p strong { color: var(--gold); }
+
+    .swis-bar-stats {
+        display: flex;
+        gap: 32px;
+        flex-shrink: 0;
+    }
+
+    .swis-bar-stats .s-item { text-align: center; }
+
+    .swis-bar-stats .s-num {
+        font-family: 'Playfair Display', serif;
+        font-size: 34px;
+        font-weight: 700;
+        color: var(--gold);
+    }
+
+    .swis-bar-stats .s-lbl {
+        font-size: 12px;
+        color: rgba(255,255,255,0.6);
+        margin-top: 4px;
+    }
+
+    /* ============================================
+       CALENDAR
+       ============================================ */
+    .cal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .cal-header h3 {
+        font-size: 20px;
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 600;
+    }
+
+    .cal-nav-btn {
+        background: none;
+        border: 1px solid var(--gray-400);
+        border-radius: 6px;
+        padding: 6px 12px;
+        cursor: pointer;
+        color: var(--text);
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+
+    .cal-nav-btn:hover { background: var(--navy); color: white; border-color: var(--navy); }
+
+    .cal-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--gray-200);
+        margin-bottom: 4px;
+    }
+
+    .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    .cal-day {
+        min-height: 90px;
+        padding: 6px 8px;
+        border-bottom: 1px solid var(--gray-100);
+        border-right: 1px solid var(--gray-100);
+        font-size: 13px;
+    }
+
+    .cal-day:nth-child(7n) { border-right: none; }
+
+    .cal-day .day-num {
+        font-weight: 600;
+        color: var(--text);
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .cal-day.other { opacity: 0.3; }
+    .cal-day.today { background: rgba(26,58,92,0.05); }
+    .cal-day.today .day-num { color: var(--burgundy); }
+
+    .cal-event {
+        display: block;
+        font-size: 11px;
+        padding: 2px 6px;
+        border-radius: 3px;
+        margin-bottom: 2px;
+        color: white;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* School colors */
+    .cal-event.AC { background: #1a5276; }
+    .cal-event.ACP { background: #117a65; }
+    .cal-event.SG { background: #6c3483; }
+    .cal-event.MC { background: #b7950b; }
+    .cal-event.ACS { background: #cb4335; }
+    .cal-event.SLC { background: #2e86c1; }
+    .cal-event.ACL { background: #d35400; }
+    .cal-event.ACT { background: #1abc9c; }
+    .cal-event.ACR { background: #8e44ad; }
+    .cal-event.ACU { background: #27ae60; }
+    .cal-event.ACN { background: #e67e22; }
+    .cal-event.ACSP { background: #2980b9; }
+    .cal-event.ATN { background: #c0392b; }
+    .cal-event.ACEP { background: #16a085; }
+    .cal-event.BSG { background: var(--gold-dark); }
+
+    .cal-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--gray-200);
+    }
+
+    .cal-legend .leg {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        color: var(--text-light);
+    }
+
+    .cal-legend .leg .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+    }
+
+    /* ============================================
+       GALLERY — magazine layout
+       ============================================ */
+    .gallery-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 12px;
+    }
+
+    .gallery-feature {
+        grid-row: 1 / 3;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        min-height: 420px;
+    }
+
+    .gallery-feature img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .gallery-feature:hover img { transform: scale(1.04); }
+
+    .gallery-side {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .gallery-item {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        aspect-ratio: 4/3;
+        cursor: pointer;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 14px;
+        background: linear-gradient(transparent 0%, rgba(0,0,0,0.65) 100%);
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+
+    .gallery-overlay .g-school {
+        font-family: 'Inter', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(4px);
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+    }
+
+    .gallery-overlay .g-title {
+        font-size: 12px;
+        color: white;
+        flex: 1;
+        margin-left: 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .gallery-feature .gallery-overlay {
+        padding: 20px 24px;
+    }
+
+    .gallery-feature .gallery-overlay .g-school {
+        font-size: 12px;
+        padding: 4px 12px;
+    }
+
+    .gallery-feature .gallery-overlay .g-title {
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .gallery-more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 10px;
+        background: var(--navy);
+        color: rgba(255,255,255,0.8);
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        aspect-ratio: 4/3;
+    }
+
+    .gallery-more:hover {
+        background: var(--navy-light);
+        color: white;
+        text-decoration: none;
+        transform: scale(1.02);
+    }
+
+    .gallery-more .gm-inner { text-align: center; }
+    .gallery-more .gm-inner .fa { display: block; font-size: 24px; margin-bottom: 8px; color: var(--gold); }
+    .gallery-more .gm-inner span { font-size: 13px; }
+
+    /* ============================================
+       SCHOOLS GRID
+       ============================================ */
+    .schools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 16px;
+    }
+
+    .school-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 20px;
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text);
+        border-left: 4px solid var(--gold);
+        transition: all 0.3s ease;
+    }
+
+    .section.alt .school-card { background: var(--cream); }
+
+    .school-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(26,58,92,0.1);
+        border-left-color: var(--burgundy);
+        text-decoration: none;
+        color: var(--text);
+    }
+
+    .school-card .s-abbr {
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: white;
+        background: var(--navy);
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .school-card .s-info h4 {
+        font-size: 14px;
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .school-card:hover .s-info h4 { color: var(--burgundy); }
+
+    .school-card .s-info .s-loc {
+        font-size: 12px;
+        color: var(--text-muted);
+    }
+
+    /* ============================================
+       FEATURES / SERVICES
+       ============================================ */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .feat-card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 28px 24px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.3s ease;
+    }
+
+    .feat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(26,58,92,0.1);
+        text-decoration: none;
+        color: var(--text);
+    }
+
+    .feat-card .feat-icon {
+        font-size: 32px;
+        color: var(--navy);
+        margin-bottom: 14px;
+    }
+
+    .feat-card h4 {
+        font-size: 16px;
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .feat-card:hover h4 { color: var(--burgundy); }
+
+    .feat-card p {
+        font-size: 13px;
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    /* ============================================
+       NETWORK
+       ============================================ */
+    .network-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .network-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 24px;
+        background: var(--cream);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--text);
+        border-left: 4px solid var(--gold);
+        transition: all 0.3s ease;
+    }
+
+    .network-card:hover {
+        background: white;
+        border-left-color: var(--burgundy);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(26,58,92,0.1);
+        text-decoration: none;
+        color: var(--text);
+    }
+
+    .network-card .nw-icon {
+        font-size: 24px;
+        color: var(--navy);
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .network-card:hover .nw-icon { color: var(--burgundy); }
+
+    .network-card .nw-info h4 {
+        font-size: 15px;
+        font-family: 'Sarabun', sans-serif;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .network-card:hover .nw-info h4 { color: var(--burgundy); }
+
+    .network-card .nw-info .nw-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+        background: var(--navy-dark);
+        color: rgba(255,255,255,0.75);
+        padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    footer h4 {
+        color: white;
+        font-size: 18px;
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--gold);
+        display: inline-block;
+        font-family: 'Playfair Display', serif;
+    }
+
+    footer p { font-size: 14px; line-height: 1.8; margin-bottom: 10px; }
+    footer .fa { color: var(--gold); width: 18px; margin-right: 8px; }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { color: white; }
+
+    .copyright {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 24px;
+        text-align: center;
+        font-size: 13px;
+        color: rgba(255,255,255,0.5);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 991px) {
+        .hero h1 { font-size: 30px; }
+        .hero-stats { gap: 28px; }
+        .news-grid { grid-template-columns: repeat(2, 1fr); }
+        .gallery-feature { min-height: 340px; }
+        .gallery-side { grid-template-columns: 1fr 1fr; }
+        .swis-bar-inner { flex-direction: column; text-align: center; }
+        .swis-bar-stats { justify-content: center; }
+    }
+
+    @media (max-width: 767px) {
+        .nav-links { display: none; }
+        .nav-toggle { display: block; }
+        .nav-links.open {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 72px;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            z-index: 99;
+        }
+        .hero { padding: 60px 0 50px; }
+        .hero h1 { font-size: 26px; }
+        .hero-stats { flex-wrap: wrap; gap: 20px; }
+        .hero-stat .stat-num { font-size: 26px; }
+        .section { padding: 50px 0; }
+        .section-header h2 { font-size: 24px; }
+        .news-grid { grid-template-columns: 1fr; }
+        .gallery-layout { grid-template-columns: 1fr; }
+        .gallery-feature { min-height: 240px; grid-row: auto; }
+        .gallery-side { grid-template-columns: 1fr 1fr; }
+        .cal-day { min-height: 60px; padding: 4px; }
+        .cal-event { font-size: 9px; padding: 1px 4px; }
+        .schools-grid { grid-template-columns: 1fr; }
+        .features-grid { grid-template-columns: 1fr; }
+        .network-grid { grid-template-columns: 1fr; }
+        .footer-grid { grid-template-columns: 1fr; }
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================
+         NAVIGATION
+         ============================================ -->
+    <nav class="site-nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="nav-brand">
+                    <img src="https://www.thaibrothers.net/images/logo.png" alt="Logo">
+                    <div>
+                        <div class="brand-text">Thai Brothers</div>
+                        <div class="brand-sub">เครือข่ายโรงเรียนในเครือมูลนิธิฯ</div>
+                    </div>
+                </a>
+                <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#news">ข่าวสาร</a></li>
+                    <li><a href="#calendar">ปฏิทิน</a></li>
+                    <li><a href="#gallery">อัลบั้มภาพ</a></li>
+                    <li><a href="#schools">โรงเรียน</a></li>
+                    <li><a href="about.html">เกี่ยวกับเรา</a></li>
+                    <li><a href="school-history.html">ประวัติโรงเรียน</a></li>
+                    <li><a href="strategic-plan.html">แผนยุทธศาสตร์</a></li>
+                    <li><a href="#contact">ติดต่อ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         ROME CALENDAR — ปฏิทินคาทอลิกของคณะ
+         ============================================ -->
+    <section class="rome-cal">
+        <div class="container">
+            <div class="rome-cal-inner">
+                <div class="rome-cal-date">
+                    <span class="cross">✠</span>
+                    Apr 12 &middot; Saturday
+                </div>
+                <div class="rome-cal-items">
+                    <span class="rc-tag"><span class="rc-label">Season</span> Fifth Week of Lent</span>
+                    <span class="rc-tag"><span class="rc-label">Saints</span> St. Magdalene of Canossa</span>
+                    <span class="rc-tag"><span class="rc-label">Special</span> Preparation for Palm Sunday</span>
+                    <span class="rc-tag"><span class="rc-label">History</span> Foundation of the first Thai Brothers community (1901)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         RANDOM PHOTO BANNER
+         ============================================ -->
+    <section class="photo-banner" id="photoBanner">
+        <!-- ภาพจะถูกสุ่มจาก pool ด้านล่าง — developer เชื่อม SWIS เพิ่มภาพจริงภายหลัง -->
+        <img class="pb-img active" src="https://placehold.co/1400x420/1a3a5c/c9a74e?text=ACT+·+กิจกรรมนักเรียน" alt="ACT กิจกรรม" data-school="ACT" data-title="กิจกรรมวันวิชาการ ปีการศึกษา 2568" data-date="25 มี.ค. 2569">
+        <img class="pb-img" src="https://placehold.co/1400x420/0d2640/c9a74e?text=MC+·+กีฬาสี" alt="MC กีฬาสี" data-school="MC" data-title="กีฬาสีมงฟอร์ตเกมส์ ครั้งที่ 48" data-date="18 มี.ค. 2569">
+        <img class="pb-img" src="https://placehold.co/1400x420/1a3a5c/fafaf7?text=ACS+·+พิธีมอบวุฒิบัตร" alt="ACS พิธี" data-school="ACS" data-title="พิธีมอบวุฒิบัตรนักเรียนชั้น ม.6" data-date="12 มี.ค. 2569">
+        <img class="pb-img" src="https://placehold.co/1400x420/0d2640/fafaf7?text=SG+·+ค่ายอาสา" alt="SG ค่ายอาสา" data-school="SG" data-title="ค่ายอาสาพัฒนาชุมชน จ.กาญจนบุรี" data-date="8 มี.ค. 2569">
+        <img class="pb-img" src="https://placehold.co/1400x420/1a3a5c/c9a74e?text=ACEP+·+Open+House" alt="ACEP Open House" data-school="ACEP" data-title="ACEP Open House 2026 — Explore the Future" data-date="1 มี.ค. 2569">
+        <img class="pb-img" src="https://placehold.co/1400x420/0d2640/c9a74e?text=ACR+·+ทัศนศึกษา" alt="ACR ทัศนศึกษา" data-school="ACR" data-title="ทัศนศึกษาเรียนรู้นอกห้องเรียน ระดับ ป.4" data-date="20 ก.พ. 2569">
+
+        <!-- Overlay content -->
+        <div class="pb-content">
+            <div class="container">
+                <div class="pb-info">
+                    <span class="pb-school" id="pbSchool">ACT</span>
+                    <div class="pb-title" id="pbTitle">กิจกรรมวันวิชาการ ปีการศึกษา 2568</div>
+                    <div class="pb-date" id="pbDate">25 มี.ค. 2569</div>
+                </div>
+                <div class="pb-dots" id="pbDots">
+                    <!-- Dots generated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         HERO
+         ============================================ -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="eyebrow">Thai Brothers Network</span>
+                <h1>เครือข่ายโรงเรียนในเครือ<br>มูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย</h1>
+                <p class="hero-desc">
+                    ศูนย์กลางข่าวสาร ภาพกิจกรรม และปฏิทินจาก 14 โรงเรียนในเครือฯ ทั่วประเทศ
+                    ขับเคลื่อนด้วยระบบ SWIS (School Web-based Information System)
+                    และแผนงาน PDCA 9 ขั้นตอนที่ออกแบบโดยมูลนิธิฯ
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="stat-num">14</div>
+                        <div class="stat-lbl">โรงเรียนในเครือ</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-num">125+</div>
+                        <div class="stat-lbl">ปีแห่งพันธกิจ</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-num">220</div>
+                        <div class="stat-lbl">ฟังก์ชัน SWIS</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-num">60K+</div>
+                        <div class="stat-lbl">นักเรียนปัจจุบัน</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         NEWS — SCHOOLS
+         ============================================ -->
+    <section id="news" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">ข่าวสารล่าสุด</span>
+                <h2>ข่าวจากโรงเรียนในเครือฯ</h2>
+                <a href="https://www.thaibrothers.net" target="_blank" class="view-all-link">ดูทั้งหมด <i class="fa fa-arrow-right"></i></a>
+                <p>อัพเดทกิจกรรมและข่าวสารล่าสุดจาก 14 โรงเรียนทั่วประเทศ</p>
+            </div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600" alt="ACT">
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span class="school-tag">ACT</span>
+                            <span class="card-date">8 เม.ย. 2569</span>
+                        </div>
+                        <h4>พิธีมอบรางวัลนักเรียนดีเด่นประจำปีการศึกษา 2568</h4>
+                        <p>โรงเรียนอัสสัมชัญธนบุรี จัดพิธีมอบรางวัลให้แก่นักเรียนที่มีผลการเรียนดีเด่น...</p>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600" alt="MC">
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span class="school-tag">MC</span>
+                            <span class="card-date">7 เม.ย. 2569</span>
+                        </div>
+                        <h4>การแข่งขันวิทยาศาสตร์นานาชาติ</h4>
+                        <p>นักเรียนโรงเรียนมงฟอร์ตวิทยาลัย คว้าเหรียญทองจากการแข่งขัน...</p>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600" alt="ACEP">
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span class="school-tag">ACEP</span>
+                            <span class="card-date">5 เม.ย. 2569</span>
+                        </div>
+                        <h4>ค่ายภาษาอังกฤษฤดูร้อน ACEP</h4>
+                        <p>โรงเรียนอัสสัมชัญหลักสูตรภาษาอังกฤษ จัดค่ายฤดูร้อน...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         NEWS — FOUNDATION
+         ============================================ -->
+    <section class="section alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>ข่าวจากมูลนิธิฯ</h2>
+                <p>ความเคลื่อนไหวจากมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย</p>
+            </div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1526324945307-37999e2b0a26?w=600" alt="Board">
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span class="school-tag" style="background:var(--gold-dark);">มูลนิธิฯ</span>
+                            <span class="card-date">9 เม.ย. 2569</span>
+                        </div>
+                        <h4>การประชุมคณะกรรมการบริหารมูลนิธิฯ ครั้งที่ 4/2569</h4>
+                        <p>คณะกรรมการบริหารมูลนิธิฯ ประชุมประจำเดือนเมษายน...</p>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600" alt="HRM">
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span class="school-tag" style="background:var(--gold-dark);">ฝ่าย HRM</span>
+                            <span class="card-date">6 เม.ย. 2569</span>
+                        </div>
+                        <h4>การนิเทศติดตามฝ่าย HRM โรงเรียนในเครือฯ</h4>
+                        <p>ฝ่าย HRM มูลนิธิฯ ลงนิเทศติดตามการจัดการทรัพยากรมนุษย์...</p>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600" alt="Strategy">
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span class="school-tag" style="background:var(--gold-dark);">ฝ่าย ICT</span>
+                            <span class="card-date">3 เม.ย. 2569</span>
+                        </div>
+                        <h4>ติดตามผลการดำเนินงานตามแผนยุทธศาสตร์มูลนิธิฯ</h4>
+                        <p>ติดตามผลการดำเนินงานตามแผน 5 ยุทธศาสตร์...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SWIS HIGHLIGHT
+         ============================================ -->
+    <section class="swis-bar">
+        <div class="container">
+            <div class="swis-bar-inner">
+                <div class="swis-bar-text">
+                    <span class="eyebrow" style="color:var(--gold);">ขับเคลื่อนด้วย SWIS</span>
+                    <h2>ระบบสารสนเทศกลางของเครือข่าย</h2>
+                    <p>
+                        ข้อมูลทั้งหมดบนเว็บไซต์นี้มาจากระบบ <strong>SWIS</strong> ของแต่ละโรงเรียน
+                        ซึ่งใช้ <strong>โมดูลแผนงาน PDCA 9 ขั้นตอน</strong> ที่มูลนิธิฯ ออกแบบเอง
+                        เป็นเครื่องมือขับเคลื่อนทุกงานและกิจกรรม ตั้งแต่วางแผนจนถึงประเมินผล
+                    </p>
+                </div>
+                <div class="swis-bar-stats">
+                    <div class="s-item">
+                        <div class="s-num">14</div>
+                        <div class="s-lbl">โรงเรียน</div>
+                    </div>
+                    <div class="s-item">
+                        <div class="s-num">220</div>
+                        <div class="s-lbl">ฟังก์ชัน</div>
+                    </div>
+                    <div class="s-item">
+                        <div class="s-num">25+</div>
+                        <div class="s-lbl">ปีพัฒนา</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CALENDAR
+         ============================================ -->
+    <section id="calendar" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">ปฏิทินกิจกรรม</span>
+                <h2>ปฏิทินรวมเครือข่าย</h2>
+                <p>กิจกรรมจากทุกโรงเรียนในเครือมูลนิธิฯ ประจำเดือน</p>
+            </div>
+
+            <div class="cal-header">
+                <button class="cal-nav-btn"><i class="fa fa-chevron-left"></i></button>
+                <h3>เมษายน 2569</h3>
+                <button class="cal-nav-btn"><i class="fa fa-chevron-right"></i></button>
+            </div>
+
+            <div class="cal-weekdays">
+                <div>อา.</div><div>จ.</div><div>อ.</div><div>พ.</div><div>พฤ.</div><div>ศ.</div><div>ส.</div>
+            </div>
+            <div class="cal-grid">
+                <div class="cal-day other"><span class="day-num">29</span></div>
+                <div class="cal-day other"><span class="day-num">30</span></div>
+                <div class="cal-day other"><span class="day-num">31</span></div>
+                <div class="cal-day"><span class="day-num">1</span></div>
+                <div class="cal-day"><span class="day-num">2</span></div>
+                <div class="cal-day"><span class="day-num">3</span></div>
+                <div class="cal-day"><span class="day-num">4</span></div>
+                <div class="cal-day"><span class="day-num">5</span></div>
+                <div class="cal-day"><span class="day-num">6</span></div>
+                <div class="cal-day"><span class="day-num">7</span></div>
+                <div class="cal-day"><span class="day-num">8</span></div>
+                <div class="cal-day"><span class="day-num">9</span></div>
+                <div class="cal-day"><span class="day-num">10</span><span class="cal-event ACR">ACR: ค่ายภาษาอังกฤษ</span></div>
+                <div class="cal-day"><span class="day-num">11</span><span class="cal-event ACR">ACR: ค่ายฤดูร้อน</span><span class="cal-event MC">MCS: ขอบคุณครูเกษียณ</span></div>
+                <div class="cal-day today"><span class="day-num">12</span><span class="cal-event BSG">BSG: Palm Sunday</span><span class="cal-event ACL">ACL: Summer Course</span></div>
+                <div class="cal-day"><span class="day-num">13</span><span class="cal-event ACT">ACT: Summer Camp</span></div>
+                <div class="cal-day"><span class="day-num">14</span><span class="cal-event ACS">ACS: ประชุมครู</span></div>
+                <div class="cal-day"><span class="day-num">15</span><span class="cal-event ACSP">ACSP: พิธีอีสเตอร์</span></div>
+                <div class="cal-day"><span class="day-num">16</span><span class="cal-event AC">AC: สอบ Entrance</span></div>
+                <div class="cal-day"><span class="day-num">17</span><span class="cal-event ACU">ACU: ปี๋ใหม่</span></div>
+                <div class="cal-day"><span class="day-num">18</span><span class="cal-event ACN">ACN: Summer Course</span></div>
+                <div class="cal-day"><span class="day-num">19</span></div>
+                <div class="cal-day"><span class="day-num">20</span><span class="cal-event ATN">ATN: พิธีเปิดค่าย</span><span class="cal-event ACEP">ACEP: Summer</span></div>
+                <div class="cal-day"><span class="day-num">21</span></div>
+                <div class="cal-day"><span class="day-num">22</span></div>
+                <div class="cal-day"><span class="day-num">23</span></div>
+                <div class="cal-day"><span class="day-num">24</span></div>
+                <div class="cal-day"><span class="day-num">25</span><span class="cal-event MC">MC: กิจกรรมศิษย์เก่า</span></div>
+                <div class="cal-day"><span class="day-num">26</span></div>
+                <div class="cal-day"><span class="day-num">27</span></div>
+                <div class="cal-day"><span class="day-num">28</span><span class="cal-event SLC">SLC: พิธีเปิดเทอม</span></div>
+                <div class="cal-day"><span class="day-num">29</span></div>
+                <div class="cal-day"><span class="day-num">30</span></div>
+                <div class="cal-day other"><span class="day-num">1</span></div>
+                <div class="cal-day other"><span class="day-num">2</span></div>
+                <div class="cal-day other"><span class="day-num">3</span></div>
+            </div>
+
+            <div class="cal-legend">
+                <div class="leg"><span class="dot" style="background:#1a5276;"></span>AC</div>
+                <div class="leg"><span class="dot" style="background:#117a65;"></span>ACP</div>
+                <div class="leg"><span class="dot" style="background:#6c3483;"></span>SG</div>
+                <div class="leg"><span class="dot" style="background:#b7950b;"></span>MC</div>
+                <div class="leg"><span class="dot" style="background:#cb4335;"></span>ACS</div>
+                <div class="leg"><span class="dot" style="background:#2e86c1;"></span>SLC</div>
+                <div class="leg"><span class="dot" style="background:#d35400;"></span>ACL</div>
+                <div class="leg"><span class="dot" style="background:#1abc9c;"></span>ACT</div>
+                <div class="leg"><span class="dot" style="background:#8e44ad;"></span>ACR</div>
+                <div class="leg"><span class="dot" style="background:#27ae60;"></span>ACU</div>
+                <div class="leg"><span class="dot" style="background:#e67e22;"></span>ACN</div>
+                <div class="leg"><span class="dot" style="background:#2980b9;"></span>ACSP</div>
+                <div class="leg"><span class="dot" style="background:#c0392b;"></span>ATN</div>
+                <div class="leg"><span class="dot" style="background:#16a085;"></span>ACEP</div>
+                <div class="leg"><span class="dot" style="background:var(--gold-dark);"></span>BSG/มูลนิธิฯ</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         GALLERY
+         ============================================ -->
+    <section id="gallery" class="section alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">อัลบั้มภาพ</span>
+                <h2>ภาพกิจกรรมจากเครือข่าย</h2>
+                <p>ภาพบรรยากาศกิจกรรมล่าสุดจากโรงเรียนในเครือมูลนิธิฯ</p>
+            </div>
+            <div class="gallery-layout">
+                <!-- Featured image (left, full height) -->
+                <div class="gallery-feature gallery-item">
+                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=900" alt="Featured">
+                    <div class="gallery-overlay">
+                        <span class="g-school">ACT</span>
+                        <span class="g-title">พิธีประสาทวุฒิบัตร ปีการศึกษา 2568</span>
+                    </div>
+                </div>
+
+                <!-- Top row (right) -->
+                <div class="gallery-side">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600" alt="MC">
+                        <div class="gallery-overlay">
+                            <span class="g-school">MC</span>
+                            <span class="g-title">แข่งวิทยาศาสตร์นานาชาติ</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600" alt="ACS">
+                        <div class="gallery-overlay">
+                            <span class="g-school">ACS</span>
+                            <span class="g-title">กีฬาสีประจำปี</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600" alt="ACEP">
+                        <div class="gallery-overlay">
+                            <span class="g-school">ACEP</span>
+                            <span class="g-title">Summer English Camp</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600" alt="SG">
+                        <div class="gallery-overlay">
+                            <span class="g-school">SG</span>
+                            <span class="g-title">Open House 2569</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom row (right) -->
+                <div class="gallery-side">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600" alt="AC">
+                        <div class="gallery-overlay">
+                            <span class="g-school">AC</span>
+                            <span class="g-title">พิธีมิสซาเปิดปีการศึกษา</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1526324945307-37999e2b0a26?w=600" alt="ACL">
+                        <div class="gallery-overlay">
+                            <span class="g-school">ACL</span>
+                            <span class="g-title">ค่ายอาสาพัฒนาชุมชน</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600" alt="ACR">
+                        <div class="gallery-overlay">
+                            <span class="g-school">ACR</span>
+                            <span class="g-title">ประชุมผู้ปกครอง</span>
+                        </div>
+                    </div>
+                    <a href="https://www.thaibrothers.net/print_title_pic_all.php" target="_blank" class="gallery-more">
+                        <div class="gm-inner">
+                            <i class="fa fa-th"></i>
+                            <span>ดูอัลบั้มทั้งหมด</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SCHOOLS
+         ============================================ -->
+    <section id="schools" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">โรงเรียนในเครือ</span>
+                <h2>14 โรงเรียน ทั่วประเทศไทย</h2>
+            </div>
+            <div class="schools-grid">
+                <a href="#" class="school-card"><span class="s-abbr">AC</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญ</h4><div class="s-loc">กรุงเทพฯ (บางรัก)</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ACP</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญ แผนกประถม</h4><div class="s-loc">กรุงเทพฯ (เซนต์หลุยส์)</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">SG</span><div class="s-info"><h4>โรงเรียนเซนต์คาเบรียล</h4><div class="s-loc">กรุงเทพฯ (สามเสน)</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">MC</span><div class="s-info"><h4>โรงเรียนมงฟอร์ตวิทยาลัย</h4><div class="s-loc">เชียงใหม่</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ACS</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญศรีราชา</h4><div class="s-loc">ชลบุรี</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">SLC</span><div class="s-info"><h4>โรงเรียนเซนต์หลุยส์ ฉะเชิงเทรา</h4><div class="s-loc">ฉะเชิงเทรา</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ACL</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญลำปาง</h4><div class="s-loc">ลำปาง</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ACT</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญธนบุรี</h4><div class="s-loc">กรุงเทพฯ (บางแค)</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ACR</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญระยอง</h4><div class="s-loc">ระยอง</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ACU</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญอุบลราชธานี</h4><div class="s-loc">อุบลราชธานี</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ACN</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญนครราชสีมา</h4><div class="s-loc">นครราชสีมา</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ACSP</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญสมุทรปราการ</h4><div class="s-loc">สมุทรปราการ</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ATN</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญเทคนิคนครพนม</h4><div class="s-loc">นครพนม</div></div></a>
+                <a href="#" class="school-card"><span class="s-abbr">ACEP</span><div class="s-info"><h4>โรงเรียนอัสสัมชัญหลักสูตรภาษาอังกฤษ</h4><div class="s-loc">สมุทรสาคร (พระราม 2)</div></div></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FEATURES / SERVICES
+         ============================================ -->
+    <section class="section alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">บริการเพิ่มเติม</span>
+                <h2>แหล่งข้อมูลและบริการ</h2>
+            </div>
+            <div class="features-grid">
+                <a href="https://thaibrothers.net/chiness/" target="_blank" class="feat-card">
+                    <div class="feat-icon"><i class="fa fa-book"></i></div>
+                    <h4>แบบเรียนภาษาจีน</h4>
+                    <p>แหล่งเรียนรู้ภาษาจีนสำหรับนักเรียนในเครือฯ</p>
+                </a>
+                <a href="http://www.thaibrothers.net/html_edu/cgi-bin/thesis/print_form_download.php" target="_blank" class="feat-card">
+                    <div class="feat-icon"><i class="fa fa-graduation-cap"></i></div>
+                    <h4>ฐานข้อมูลวิทยานิพนธ์</h4>
+                    <p>รวมวิทยานิพนธ์และงานวิจัยของบุคลากรในเครือฯ</p>
+                </a>
+                <a href="https://thaibrothers.net/alumni/" target="_blank" class="feat-card">
+                    <div class="feat-icon"><i class="fa fa-users"></i></div>
+                    <h4>ลงทะเบียนศิษย์เก่า</h4>
+                    <p>เครือข่ายศิษย์เก่าโรงเรียนในเครือมูลนิธิฯ</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         NETWORK
+         ============================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">เครือข่ายสากล</span>
+                <h2>เว็บไซต์ที่เกี่ยวข้อง</h2>
+            </div>
+            <div class="network-grid">
+                <a href="https://www.montfortian.net" target="_blank" class="network-card">
+                    <div class="nw-icon"><i class="fa fa-globe"></i></div>
+                    <div class="nw-info">
+                        <h4>Montfortian Network</h4>
+                        <div class="nw-desc">เครือข่ายคณะมงฟอร์ต 3 คณะทั่วโลก</div>
+                    </div>
+                </a>
+                <a href="https://www.stgabrielinst.org" target="_blank" class="network-card">
+                    <div class="nw-icon"><i class="fa fa-university"></i></div>
+                    <div class="nw-info">
+                        <h4>St.Gabriel Foundation (Rome)</h4>
+                        <div class="nw-desc">ศูนย์กลางคณะภราดาเซนต์คาเบรียลทั่วโลก</div>
+                    </div>
+                </a>
+                <a href="https://swisplus.com" target="_blank" class="network-card">
+                    <div class="nw-icon"><i class="fa fa-code"></i></div>
+                    <div class="nw-info">
+                        <h4>SWIS Plus</h4>
+                        <div class="nw-desc">ผู้พัฒนาระบบ SWIS</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>ติดต่อเรา</h4>
+                    <p><i class="fa fa-map-marker"></i> อาคารมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย<br>
+                       2 ซอยแสงเงิน (ทองหล่อ 25) ถนนสุขุมวิท 55<br>
+                       แขวงคลองตันเหนือ เขตวัฒนา กรุงเทพฯ 10110</p>
+                    <p><i class="fa fa-phone"></i> (02) 712-9010 · โทรสาร (02) 390-2292</p>
+                    <p><i class="fa fa-envelope"></i> swiscenter@gmail.com</p>
+                </div>
+                <div>
+                    <h4>Thai Brothers Network</h4>
+                    <p>
+                        เว็บไซต์นี้เป็นศูนย์กลางเชื่อมโยงข้อมูลจากระบบ SWIS
+                        ของโรงเรียนในเครือมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย
+                        ดูแลโดย ฝ่ายเทคโนโลยีสารสนเทศเพื่อการบริหารและการศึกษา
+                    </p>
+                    <p>
+                        <a href="about.html"><i class="fa fa-info-circle"></i> เกี่ยวกับเรา</a>
+                    </p>
+                </div>
+                <div>
+                    <h4>เว็บไซต์ในเครือ</h4>
+                    <p><a href="https://www.montfortian.net" target="_blank"><i class="fa fa-globe"></i> montfortian.net</a></p>
+                    <p><a href="https://fsgthailand.org" target="_blank"><i class="fa fa-globe"></i> fsgthailand.org</a></p>
+                    <p><a href="https://swisplus.com" target="_blank"><i class="fa fa-globe"></i> swisplus.com</a></p>
+                    <p><a href="montfortian-stream.html"><i class="fa fa-stream"></i> สายธารพันธกิจ — The Montfortian Stream</a></p>
+                </div>
+            </div>
+            <div class="copyright">
+                Copyright &copy; thaibrothers.net 2004–2026 · swiscenter@gmail.com
+                &nbsp;·&nbsp;
+                Part of <a href="https://www.montfortian.net" target="_blank">Montfortian Network</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         RANDOM PHOTO BANNER — Script
+         ============================================ -->
+    <script>
+    (function() {
+        const banner = document.getElementById('photoBanner');
+        if (!banner) return;
+
+        const imgs = banner.querySelectorAll('.pb-img');
+        const dotsBox = document.getElementById('pbDots');
+        const schoolEl = document.getElementById('pbSchool');
+        const titleEl = document.getElementById('pbTitle');
+        const dateEl = document.getElementById('pbDate');
+        const total = imgs.length;
+        let current = 0;
+        let timer;
+
+        // สุ่มเริ่มต้น
+        current = Math.floor(Math.random() * total);
+
+        // สร้าง dots
+        for (let i = 0; i < total; i++) {
+            const d = document.createElement('button');
+            d.className = 'dot' + (i === current ? ' active' : '');
+            d.setAttribute('aria-label', 'ภาพที่ ' + (i + 1));
+            d.addEventListener('click', function() { goTo(i); });
+            dotsBox.appendChild(d);
+        }
+
+        function showSlide(idx) {
+            imgs.forEach(function(img, i) {
+                img.classList.toggle('active', i === idx);
+            });
+            dotsBox.querySelectorAll('.dot').forEach(function(d, i) {
+                d.classList.toggle('active', i === idx);
+            });
+            // อัพเดทข้อมูลด้านล่าง
+            var img = imgs[idx];
+            schoolEl.textContent = img.dataset.school || '';
+            titleEl.textContent = img.dataset.title || '';
+            dateEl.textContent = img.dataset.date || '';
+        }
+
+        function goTo(idx) {
+            current = idx;
+            showSlide(current);
+            resetTimer();
+        }
+
+        function next() {
+            current = (current + 1) % total;
+            showSlide(current);
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timer = setInterval(next, 6000);
+        }
+
+        // เริ่มแสดง
+        showSlide(current);
+        resetTimer();
+    })();
+    </script>
+
+</body>
+</html>

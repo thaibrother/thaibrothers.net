@@ -1,0 +1,2072 @@
+<?php
+include_once "lib/config_db.php";
+include_once "lib/obj_db.php";
+include_once "lib/utility.php";
+$swis = new connect_db("swis");
+$swis_thaibrother = new connect_db("thaibrother_database");
+
+$next_ten_day_begin = date('Y-m-d');
+$next_ten_day_end   = date('Y-m-d', strtotime($next_ten_day_begin . ' + 10 days'));
+$tomorrow           = date('Y-m-d', strtotime($next_ten_day_begin . ' + 1 days'));
+$time_year          = time_year('');
+$print_side         = select_pirnt_add_side($time_year);
+$select_slide       = select_slide();
+$rome_calendar      = select_rome_calendar();
+
+###########
+function select_pirnt_add_side($time_year)
+{
+    global $swis;
+
+    $sql                   = "select id_side,name_side from edu_side where active = '1' and connect_side = 0 and year_edu= ? order by asc_side ASC ";
+    $query                 = $swis->pcache($sql, array($time_year));
+    $select_pirnt_add_side = "";
+    $a                     = 1;
+    foreach ($query as $row)
+    {
+        $id_side   = $row['id_side'];
+        $name_side = $row['name_side'];
+        $select_pirnt_add_side .= "<li><a href='/html_edu/cgi-bin/main_php/print_side.php?id_side=$id_side&time_year=$time_year'  ><strong>$name_side</strong></a></li>";
+        $a++;
+    }
+
+    return $select_pirnt_add_side;
+
+}
+#####################
+function select_slide()
+{
+    global $swis;
+
+    $sql   = "SELECT id_pr,pic FROM pr_banner WHERE  active='1' and action='0' and level !=0 ORDER BY level ASC ";
+    $query = $swis->pcache($sql, array());
+
+    $i      = 0;
+    $active = "active";
+    foreach ($query as $row)
+    {
+        $id_pr = $row["id_pr"];
+        $pic   = $row["pic"];
+
+        $print[$i] = "<div class='item $active'>
+                    <img src='https://www.thaibrothers.net/html_edu/thaibrother/temp_banner/$pic' style='width:100%;'>
+					</div>";
+
+        $active = '';
+
+        $print_cnt[$i] = "<li data-target='#myCarousel' data-slide-to='$i'></li>";
+
+        $i++;
+    }
+
+    $select_slide['txt'] = implode("\n", $print);
+    $select_slide['cnt'] = implode("\n", $print_cnt);
+
+    return $select_slide;
+}
+########################################################################
+$print_pic_title = select_edu();
+#############################################################################
+function select_edu()
+{
+    $swis = new connect_db("thaibrother_database");
+
+    $print     = '';
+    $sql_query = "select name_edu,first_ip,databases_name,first_name_server,web_name,databases_login,databases_password,datebase_host from swis_ip where pic_status_cen ='1' order by pic_level ASC ";
+    $shows     = $swis->pcache($sql_query, array());
+    foreach ($shows as $row)
+    {
+        $name_edu       = $row["name_edu"];
+        $databases_name = $row["databases_name"];
+        $web_name       = $row["web_name"];
+
+        $db        = new connect_db($databases_name);
+        $sql_query = "select id_pic,pic_title,show_pic,last_update from pic_post  where  show_picture='1' order by id_pic DESC  LIMIT 0,1 ";
+        $s         = $db->pcache($sql_query, array());
+
+        if (count($s) > 0)
+        {
+            foreach ($s as $v)
+            {
+                $id_pic      = $v["id_pic"];
+                $pic_title   = strip_tags($v["pic_title"]);
+                $show_pic    = $v["show_pic"];
+                $last_update = $v["last_update"];
+
+                $str = util_base64_url_encode("type=pic_post_small&file=$show_pic");
+                $url = "lib/show_img.php?id=" . $str;
+
+                $pic_link = $web_name . 'html_edu/cgi-bin/report/print_picture.php?id_pic=' . $id_pic;
+
+                $print .= '
+      <div class="gallery-item">
+    <a href="' . $pic_link . '"      target="_blank">
+              <img src="' . $web_name . $url . '"  >
+              <div class="overlay">
+                  <p>  ' . $pic_title . ' (' . strtoupper($databases_name) . ') </p>
+              </div>
+              </a>
+      </div>
+     ';
+
+            }
+        }
+
+    }
+
+    return $print;
+}
+####################################################################################
+$slide_school = select_slide_school();
+####################################################################################
+function select_slide_school()
+{
+    $swis = new connect_db("thaibrother_database");
+
+    $sql_query = "select name_edu,databases_name,web_name from swis_ip where pic_status_cen ='1' order by pic_level ASC ";
+    $shows     = $swis->pcache($sql_query, array());
+
+    $items      = '';
+    $indicators = '';
+    $i          = 0;
+
+    foreach ($shows as $row)
+    {
+        $name_edu       = $row["name_edu"];
+        $databases_name = $row["databases_name"];
+        $web_name       = $row["web_name"];
+
+        if ($databases_name == 'acc')
+        {
+            continue;
+        }
+
+        $sql_query = "select id_pic,pic_title,show_pic from $databases_name.pic_post where show_picture='1' order by id_pic DESC LIMIT 0,1 ";
+        $s         = $swis->pcache($sql_query, array());
+
+        if (count($s) > 0)
+        {
+            foreach ($s as $v)
+            {
+                $id_pic    = $v["id_pic"];
+                $pic_title = strip_tags($v["pic_title"]);
+                $show_pic  = $v["show_pic"];
+
+                $str      = util_base64_url_encode("type=pic_post_small&file=$show_pic");
+                $img_url  = $web_name . "lib/show_img.php?id=" . $str;
+                $pic_link = $web_name . 'html_edu/cgi-bin/report/print_picture.php?id_pic=' . $id_pic;
+
+                $active = ($i == 0) ? 'active' : '';
+
+                $items .= "<div class='item $active'>
+
+                        <img src='$img_url' alt='$pic_title'>
+
+                    <div class='carousel-caption'>
+
+
+                    </div>
+                </div>\n";
+
+                //$indicators .= "<li data-target='#schoolSlideshow' data-slide-to='$i' class='$active'></li>\n";
+                $indicators = "";
+                $i++;
+            }
+        }
+    }
+
+    $slide_school['items']      = $items;
+    $slide_school['indicators'] = $indicators;
+
+    return $slide_school;
+}
+####################################################################################
+$print_pic_title_bsg = '';
+$sql_query           = "select id_pic,pic_title,show_pic,last_update from pic_post  where  show_picture='1' order by id_pic DESC  LIMIT 0,9 ";
+$s                   = $swis->pcache($sql_query, array());
+
+if (count($s) > 0)
+{
+    foreach ($s as $v)
+    {
+        $id_pic      = $v["id_pic"];
+        $pic_title   = strip_tags($v["pic_title"]);
+        $show_pic    = $v["show_pic"];
+        $last_update = $v["last_update"];
+
+        $str = util_base64_url_encode("type=pic_post_small&file=$show_pic");
+        $url = "lib/show_img.php?id=" . $str;
+
+        $pic_link = '/html_edu/cgi-bin/report/print_picture.php?id_pic=' . $id_pic;
+
+        $print_pic_title_bsg .= '
+<div class="gallery-item">
+<a href="' . $pic_link . '"      target="_blank">
+      <img src="' . $url . '"  >
+      <div class="overlay">
+          <p>  ' . $pic_title . ' </p>
+      </div>
+</a>
+</div>
+';
+
+    }
+}
+####################################################################################
+function select_rome_calendar()
+{
+    global $swis_thaibrother;
+
+    $today = date('Y-m-d');
+    $sql   = "SELECT date, day, liturgical_season_sunday, saints_feasts, special_days_events, historical_events, deceased_brothers FROM rome_calendar WHERE date = ?";
+    $query = $swis_thaibrother->pcache($sql, array($today));
+
+    if (count($query) > 0)
+    {
+        return $query[0];
+    }
+    return null;
+}
+
+?>
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St.Gabriel's Foundation Network — Thai Brothers</title>
+    <meta name="description" content="เครือข่ายมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย — ข่าวสาร ภาพกิจกรรม ปฏิทิน และการเชื่อมโยงโรงเรียนในเครือ">
+
+    <!-- Bootstrap 3 CSS (required for dynamic PHP output and carousel) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Lightbox CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.css">
+    <!-- Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+    <!-- Google Fonts — Sarabun (TH) + Playfair Display (EN headings) + Inter (EN body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Sarabun:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+    /* ============================================
+       DESIGN SYSTEM — International Institutional
+       ============================================ */
+    :root {
+        --navy: #1a3a5c;
+        --navy-dark: #0d2640;
+        --navy-light: #2c5f8a;
+        --burgundy: #8b0000;
+        --burgundy-light: #a52a2a;
+        --gold: #c9a74e;
+        --gold-dark: #8b6914;
+        --cream: #fafaf7;
+        --white: #ffffff;
+        --gray-50: #f8f9fa;
+        --gray-100: #f1f3f5;
+        --gray-200: #e9ecef;
+        --gray-400: #ced4da;
+        --gray-600: #6c757d;
+        --text: #2a2a2a;
+        --text-light: #5a5a5a;
+        --text-muted: #8a8a8a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Sarabun', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        color: var(--text);
+        line-height: 1.7;
+        background-color: var(--cream);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: 'Playfair Display', 'Sarabun', serif;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.3;
+    }
+
+    a { transition: all 0.3s ease; }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .navbar-default {
+        background: var(--white);
+        border: none;
+        border-bottom: 1px solid var(--gray-200);
+        border-radius: 0;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        margin-bottom: 0;
+        min-height: 88px;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .navbar-default.scrolled {
+        box-shadow: 0 4px 30px rgba(0,0,0,0.12);
+    }
+
+    .navbar-default .navbar-brand {
+        height: auto;
+        padding: 14px 15px;
+        font-family: 'Playfair Display', 'Sarabun', serif;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--navy);
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.3px;
+        line-height: 1.2;
+    }
+
+    .navbar-default .navbar-brand img {
+        width: 60px;
+        height: 60px;
+        margin-right: 14px;
+    }
+
+    .navbar-default .navbar-nav > li > a {
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 500;
+        padding: 34px 18px;
+        text-transform: none;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .navbar-default .navbar-nav > li > a:hover,
+    .navbar-default .navbar-nav > li > a:focus {
+        color: var(--navy);
+        background: transparent;
+    }
+
+    .navbar-default .navbar-nav > li > a::after {
+        content: '';
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: all 0.3s;
+        transform: translateX(-50%);
+    }
+
+    .navbar-default .navbar-nav > li > a:hover::after {
+        width: calc(100% - 36px);
+    }
+
+    .navbar-default .navbar-nav > .open > a,
+    .navbar-default .navbar-nav > .open > a:hover,
+    .navbar-default .navbar-nav > .open > a:focus {
+        background: transparent;
+        color: var(--navy);
+    }
+
+    .navbar-default .navbar-toggle {
+        margin-top: 27px;
+        border-color: var(--navy);
+    }
+
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: var(--navy);
+    }
+
+    /* Dropdown */
+    .dropdown-menu {
+        border: none;
+        border-radius: 0;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        padding: 8px 0;
+        min-width: 240px;
+        margin-top: 0;
+        border-top: 3px solid var(--gold);
+        background: white;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+        display: block;
+    }
+
+    .dropdown.open > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .dropdown-menu > li > a {
+        padding: 12px 24px;
+        color: var(--text);
+        font-size: 14px;
+        border-bottom: 1px solid var(--gray-100);
+        transition: all 0.25s;
+    }
+
+    .dropdown-menu > li:last-child > a { border-bottom: none; }
+
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus {
+        background: var(--navy);
+        color: var(--white);
+        padding-left: 30px;
+    }
+
+    /* Search form */
+    .navbar-form {
+        margin-top: 26px;
+        margin-right: 10px;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .navbar-form .form-control {
+        border: 1px solid var(--gray-200);
+        border-radius: 30px;
+        padding: 8px 18px;
+        font-size: 14px;
+        background: var(--gray-50);
+        box-shadow: none;
+        transition: all 0.3s;
+        width: 180px;
+    }
+
+    .navbar-form .form-control:focus {
+        border-color: var(--navy);
+        background: white;
+        width: 220px;
+    }
+
+    .navbar-form .btn {
+        border-radius: 30px;
+        background: var(--navy);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        margin-left: 6px;
+    }
+
+    .navbar-form .btn:hover {
+        background: var(--gold);
+    }
+
+    /* SWIS Plus CTA button */
+    .navbar-default .navbar-nav > li > a[href*="admin"] {
+        background: var(--navy);
+        color: white !important;
+        border-radius: 30px;
+        padding: 10px 22px !important;
+        margin: 26px 8px;
+    }
+    .navbar-default .navbar-nav > li > a[href*="admin"]:hover {
+        background: var(--gold);
+    }
+    .navbar-default .navbar-nav > li > a[href*="admin"]::after { display: none; }
+
+    @media (max-width: 767px) {
+        .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            position: static;
+            float: none;
+            width: 100%;
+            box-shadow: none;
+            background-color: var(--gray-50);
+            padding-left: 15px;
+            display: none;
+            border-top: none;
+        }
+        .dropdown.open > .dropdown-menu { display: block; }
+    }
+
+    /* ============================================
+       ROME CALENDAR
+       ============================================ */
+    .rome-calendar-section {
+        padding: 24px 0 10px;
+        background: var(--cream);
+    }
+
+    .rome-calendar-box {
+        background: white;
+        border-radius: 12px;
+        padding: 0;
+        box-shadow: 0 4px 24px rgba(26,58,92,0.08);
+        overflow: hidden;
+        border: 1px solid var(--gray-200);
+    }
+
+    .rome-calendar-box .cal-date-bar {
+        background: linear-gradient(135deg, var(--burgundy) 0%, #5c0000 100%);
+        color: white;
+        padding: 16px 28px;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        font-family: 'Playfair Display', 'Sarabun', serif;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .rome-calendar-box .cal-date-bar::before {
+        content: '✠';
+        font-size: 26px;
+        opacity: 0.85;
+    }
+
+    .rome-calendar-box .cal-content {
+        padding: 22px 28px;
+        display: grid;
+        gap: 10px;
+    }
+
+    .rome-calendar-box .cal-line {
+        font-size: 14px;
+        color: var(--text);
+        padding: 12px 16px;
+        border-radius: 8px;
+        background: var(--cream);
+        border-left: 3px solid var(--burgundy);
+        line-height: 1.6;
+    }
+
+    .rome-calendar-box .cal-line strong {
+        color: var(--burgundy);
+        font-weight: 600;
+        margin-right: 8px;
+    }
+
+    /* ============================================
+       SCHOOL SLIDESHOW (HERO)
+       ============================================ */
+    .slideshow-section {
+        padding: 0;
+        margin: 0;
+        position: relative;
+    }
+
+    #schoolSlideshow {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        overflow: hidden;
+        background-color: var(--navy-dark);
+        position: relative;
+    }
+
+    #schoolSlideshow .item img {
+        width: 100%;
+        height: 78vh;
+        min-height: 500px;
+        object-fit: cover;
+        filter: brightness(0.88);
+    }
+
+    #schoolSlideshow .carousel-caption {
+        background: linear-gradient(to top, rgba(13,38,64,0.85), transparent);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 60px 40px 40px;
+        text-align: left;
+    }
+
+    #schoolSlideshow .carousel-caption h3 {
+        color: white;
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    }
+
+    #schoolSlideshow .carousel-caption p {
+        color: rgba(255,255,255,0.9);
+        font-size: 16px;
+        font-weight: 300;
+    }
+
+    #schoolSlideshow .carousel-control {
+        width: 8%;
+        background-image: none;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 2;
+    }
+
+    #schoolSlideshow:hover .carousel-control { opacity: 0.8; }
+
+    #schoolSlideshow .carousel-control .glyphicon {
+        font-size: 40px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    #schoolSlideshow .carousel-indicators li {
+        border-color: rgba(255,255,255,0.6);
+        width: 12px;
+        height: 12px;
+        margin: 0 5px;
+    }
+
+    #schoolSlideshow .carousel-indicators .active {
+        background-color: var(--gold);
+        border-color: var(--gold);
+        width: 14px;
+        height: 14px;
+    }
+
+    @media (max-width: 991px) {
+        #schoolSlideshow .item img { height: 60vh; min-height: 400px; }
+    }
+    @media (max-width: 767px) {
+        #schoolSlideshow .item img { height: 50vh; min-height: 300px; }
+        #schoolSlideshow .carousel-caption h3 { font-size: 18px; }
+        #schoolSlideshow .carousel-caption p { font-size: 14px; }
+    }
+
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    section { padding: 90px 0; }
+
+    .container { max-width: 1200px; }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+        font-size: 38px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title h2::after {
+        content: '';
+        display: block;
+        width: 70px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--gold) 0%, var(--gold-dark) 100%);
+        margin: 22px auto 0;
+        border-radius: 2px;
+    }
+
+    .section-title p {
+        color: var(--text-muted);
+        font-size: 16px;
+        margin-top: 14px;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: 300;
+    }
+
+    /* ============================================
+       EVENTS CALENDAR
+       ============================================ */
+    #events-section {
+        background: var(--white);
+        text-align: center;
+    }
+
+    .events-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+    }
+
+    .btn-event {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 32px;
+        background: var(--navy);
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        border: 2px solid var(--navy);
+        letter-spacing: 0.3px;
+    }
+
+    .btn-event:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: white;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(201,167,78,0.3);
+    }
+
+    .btn-event.burgundy {
+        background: var(--burgundy);
+        border-color: var(--burgundy);
+    }
+
+    .btn-event.burgundy:hover {
+        background: var(--burgundy-light);
+        border-color: var(--burgundy-light);
+        box-shadow: 0 8px 20px rgba(139,0,0,0.3);
+    }
+
+    /* ============================================
+       GALLERY
+       ============================================ */
+    .gallery-section { background: var(--cream); }
+    .gallery-section.alt { background: white; }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+        padding: 0;
+    }
+
+    .gallery-item {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        background: white;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(26,58,92,0.18);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.08); }
+
+    .gallery-item .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(26,58,92,0.95), rgba(26,58,92,0.4) 60%, transparent);
+        padding: 40px 20px 20px;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .gallery-item .overlay p {
+        font-size: 15px;
+        margin: 0;
+        color: white;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    .gallery-item .overlay h3 {
+        color: white;
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    /* Gallery fade-in animation */
+    .gallery-item { animation: fadeInUp 0.8s ease backwards; }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .gallery-item:nth-child(1) { animation-delay: 0.05s; }
+    .gallery-item:nth-child(2) { animation-delay: 0.1s; }
+    .gallery-item:nth-child(3) { animation-delay: 0.15s; }
+    .gallery-item:nth-child(4) { animation-delay: 0.2s; }
+    .gallery-item:nth-child(5) { animation-delay: 0.25s; }
+    .gallery-item:nth-child(6) { animation-delay: 0.3s; }
+    .gallery-item:nth-child(7) { animation-delay: 0.35s; }
+    .gallery-item:nth-child(8) { animation-delay: 0.4s; }
+    .gallery-item:nth-child(9) { animation-delay: 0.45s; }
+    .gallery-item:nth-child(n+10) { animation-delay: 0.5s; }
+
+    .view-all {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .btn-view-all {
+        display: inline-block;
+        padding: 14px 40px;
+        background: transparent;
+        color: var(--navy);
+        border: 2px solid var(--navy);
+        border-radius: 30px;
+        font-weight: 500;
+        font-size: 14px;
+        text-decoration: none;
+        transition: all 0.3s;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-view-all:hover {
+        background: var(--navy);
+        color: white;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(26,58,92,0.2);
+    }
+
+    /* ============================================
+       NEWS SECTIONS
+       ============================================ */
+    .news-section { background: var(--white); }
+    .news-section.alt { background: var(--cream); }
+
+    /* Legacy news styles (for jlayer AJAX output) */
+    .news-grid { display: flex; flex-wrap: wrap; margin: 0 -10px; }
+    .news-column { width: 50%; padding: 0 10px; }
+    .news-item {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        margin-bottom: 20px;
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+    .news-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .news-header {
+        padding: 16px 22px;
+        background-color: var(--navy);
+        border-bottom: 1px solid var(--gray-200);
+    }
+    .news-title { margin: 0; font-size: 18px; color: #fff; }
+    .news-date { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
+    .news-content { padding: 22px; }
+    .news-image {
+        width: 100%;
+        max-height: 220px;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border-radius: 6px;
+    }
+    .read-more {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: var(--navy);
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+        font-size: 11px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        float: right;
+    }
+    .read-more:hover { background-color: var(--gold); color: white; }
+
+    @media (max-width: 768px) {
+        .news-column { width: 100%; }
+    }
+
+    /* Well - White Theme (legacy) */
+    .well-white {
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        color: var(--text-light);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .list-well-white { list-style: none; padding: 0; margin: 0; }
+    .list-well-white li {
+        background: var(--gray-50);
+        margin: 8px 0;
+        padding: 15px 20px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        border-left: 3px solid var(--gray-200);
+        color: var(--text-light);
+    }
+    .list-well-white li:hover {
+        background: white;
+        border-left-color: var(--navy);
+        transform: translateX(5px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        color: var(--navy);
+    }
+
+    /* ============================================
+       FANPAGE
+       ============================================ */
+    .fanpage-section {
+        background: var(--cream);
+    }
+
+    .fanpage-section .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+    }
+
+    /* ============================================
+       FEATURES (CTA cards on dark background)
+       ============================================ */
+    .features-section {
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+        padding: 100px 0;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .features-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(201,167,78,0.08) 0%, transparent 60%);
+        pointer-events: none;
+    }
+
+    .features-section .section-title h2 { color: white; }
+
+    .features-section .section-title p { color: rgba(255,255,255,0.7); }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 16px;
+        padding: 44px 30px;
+        text-align: center;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        border-top: 4px solid var(--gold);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+        border-top-color: var(--burgundy);
+    }
+
+    .feature-card .feature-icon {
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .feature-card .feature-icon svg {
+        width: 72px;
+        height: 72px;
+        fill: var(--navy);
+        transition: fill 0.3s;
+    }
+
+    .feature-card:hover .feature-icon svg { fill: var(--burgundy); }
+
+    .feature-card a {
+        color: var(--navy);
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+        display: block;
+        transition: color 0.3s;
+    }
+
+    .feature-card a:hover { color: var(--burgundy); }
+
+    .feature-card h3 {
+        font-size: 18px;
+        margin: 0;
+        color: var(--navy);
+        transition: color 0.3s;
+    }
+
+    .feature-card:hover h3 { color: var(--burgundy); }
+
+    /* ============================================
+       ABOUT US — พันธกิจและที่มาของเว็บนี้
+       ============================================ */
+    .about-us-section {
+        background: linear-gradient(180deg, var(--cream) 0%, var(--white) 100%);
+        padding: 90px 0 70px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-us-section::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--navy) 0%, var(--burgundy) 50%, var(--gold) 100%);
+    }
+
+    .about-hero {
+        max-width: 980px;
+        margin: 0 auto 60px;
+        text-align: center;
+    }
+
+    .about-hero .eyebrow {
+        display: inline-block;
+        font-size: 12px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--burgundy);
+        font-weight: 600;
+        margin-bottom: 16px;
+        padding: 6px 18px;
+        border: 1px solid var(--burgundy);
+        border-radius: 20px;
+        font-family: 'Inter', 'Sarabun', sans-serif;
+    }
+
+    .about-hero h2 {
+        font-size: 38px;
+        color: var(--navy);
+        margin-bottom: 10px;
+        font-family: 'Playfair Display', 'Sarabun', serif;
+    }
+
+    .about-hero .subtitle-en {
+        font-size: 16px;
+        color: var(--text-muted);
+        font-style: italic;
+        font-family: 'Playfair Display', serif;
+        margin-bottom: 24px;
+    }
+
+    .about-hero .lead {
+        font-size: 17px;
+        color: var(--text-light);
+        line-height: 1.9;
+        max-width: 820px;
+        margin: 0 auto;
+    }
+
+    .about-quote {
+        max-width: 820px;
+        margin: 40px auto 0;
+        padding: 28px 40px;
+        background: var(--white);
+        border-left: 4px solid var(--gold);
+        border-radius: 4px;
+        box-shadow: 0 4px 20px rgba(26,58,92,0.06);
+        font-style: italic;
+        color: var(--text);
+        font-size: 16px;
+        position: relative;
+    }
+
+    .about-quote::before {
+        content: "\201C";
+        position: absolute;
+        top: -10px;
+        left: 16px;
+        font-size: 72px;
+        color: var(--gold);
+        font-family: 'Playfair Display', serif;
+        line-height: 1;
+        opacity: 0.4;
+    }
+
+    .about-quote cite {
+        display: block;
+        margin-top: 12px;
+        font-size: 13px;
+        color: var(--text-muted);
+        font-style: normal;
+        font-weight: 600;
+    }
+
+    .about-pillars {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 28px;
+        max-width: 1180px;
+        margin: 60px auto 0;
+    }
+
+    .pillar-card {
+        background: var(--white);
+        padding: 36px 28px;
+        border-radius: 8px;
+        border-top: 3px solid var(--gold);
+        box-shadow: 0 4px 20px rgba(26,58,92,0.06);
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .pillar-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(26,58,92,0.12);
+        border-top-color: var(--burgundy);
+    }
+
+    .pillar-card .pillar-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        margin: 0 auto 20px;
+        box-shadow: 0 4px 14px rgba(26,58,92,0.25);
+    }
+
+    .pillar-card h3 {
+        font-size: 18px;
+        color: var(--navy);
+        margin-bottom: 10px;
+    }
+
+    .pillar-card p {
+        font-size: 14px;
+        color: var(--text-light);
+        line-height: 1.7;
+    }
+
+    .about-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 24px;
+        max-width: 1100px;
+        margin: 70px auto 0;
+        padding: 40px 30px;
+        background: var(--navy);
+        border-radius: 10px;
+        color: var(--white);
+        position: relative;
+        box-shadow: 0 16px 40px rgba(26,58,92,0.18);
+    }
+
+    .about-stats::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 10px 10px 0 0;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 10px 16px;
+        border-right: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-item .stat-number {
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--gold);
+        font-family: 'Playfair Display', serif;
+        line-height: 1;
+        margin-bottom: 8px;
+    }
+
+    .stat-item .stat-label {
+        font-size: 13px;
+        color: rgba(255,255,255,0.85);
+        letter-spacing: 0.5px;
+    }
+
+    .about-cta {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .about-cta .btn-about {
+        display: inline-block;
+        padding: 14px 32px;
+        background: var(--burgundy);
+        color: var(--white);
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        margin: 0 6px;
+    }
+
+    .about-cta .btn-about:hover {
+        background: var(--navy);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .about-cta .btn-about.outline {
+        background: transparent;
+        color: var(--navy);
+        border: 2px solid var(--navy);
+    }
+
+    .about-cta .btn-about.outline:hover {
+        background: var(--navy);
+        color: var(--white);
+    }
+
+    @media (max-width: 767px) {
+        .about-us-section { padding: 60px 0 50px; }
+        .about-hero h2 { font-size: 28px; }
+        .about-hero .lead { font-size: 15px; }
+        .about-stats { padding: 30px 20px; }
+        .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 20px; }
+        .stat-item:last-child { border-bottom: none; }
+        .stat-item .stat-number { font-size: 36px; }
+        .about-cta .btn-about { display: block; margin: 10px 0; }
+    }
+
+    /* ============================================
+       NETWORK BAR (เครือข่ายสากล)
+       ============================================ */
+    .network-bar {
+        background: var(--white);
+        padding: 70px 0 60px;
+        border-top: 1px solid var(--gray-200);
+        border-bottom: 1px solid var(--gray-200);
+    }
+
+    .network-bar .section-title {
+        margin-bottom: 40px;
+    }
+
+    .network-bar .section-title h2 {
+        font-size: 30px;
+    }
+
+    .network-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .network-link {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 24px 28px;
+        background: var(--cream);
+        border: 1px solid var(--gray-200);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--gold);
+    }
+
+    .network-link:hover {
+        background: white;
+        border-left-color: var(--burgundy);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(26,58,92,0.12);
+        text-decoration: none;
+        color: var(--text);
+    }
+
+    .network-link .network-icon {
+        font-size: 36px;
+        color: var(--navy);
+        flex-shrink: 0;
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .network-link:hover .network-icon {
+        color: var(--burgundy);
+    }
+
+    .network-link .network-info {
+        flex: 1;
+    }
+
+    .network-link .network-info h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--navy);
+        margin-bottom: 4px;
+        font-family: 'Playfair Display', 'Sarabun', serif;
+    }
+
+    .network-link:hover .network-info h4 {
+        color: var(--burgundy);
+    }
+
+    .network-link .network-info .url {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-family: 'Inter', monospace;
+    }
+
+    .network-link .network-info .desc {
+        font-size: 13px;
+        color: var(--text-light);
+        margin-top: 4px;
+        line-height: 1.5;
+    }
+
+    @media (max-width: 767px) {
+        .network-bar { padding: 50px 0 40px; }
+        .network-link { padding: 20px; gap: 16px; }
+        .network-link .network-icon { width: 48px; height: 48px; font-size: 30px; }
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+        background: var(--navy-dark);
+        color: rgba(255,255,255,0.85);
+        padding: 80px 0 30px;
+        margin-top: 0;
+    }
+
+    footer .container { max-width: 1200px; }
+
+    footer h4 {
+        color: white;
+        font-size: 20px;
+        margin-bottom: 24px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--gold);
+        display: inline-block;
+        font-family: 'Playfair Display', 'Sarabun', serif;
+    }
+
+    footer p {
+        margin-bottom: 14px;
+        line-height: 1.8;
+        font-size: 14px;
+        color: rgba(255,255,255,0.75);
+    }
+
+    footer .fa {
+        color: var(--gold);
+        width: 20px;
+        margin-right: 10px;
+    }
+
+    .copyright {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        margin-top: 50px;
+        padding-top: 30px;
+        text-align: center;
+        color: rgba(255,255,255,0.55);
+        font-size: 13px;
+    }
+
+    .copyright img {
+        filter: brightness(0) invert(1);
+        opacity: 0.6;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+
+    /* ============================================
+       MODAL POPUP
+       ============================================ */
+    .image-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.95);
+        animation: fadeIn 0.3s ease;
+    }
+
+    .image-modal-content {
+        position: relative;
+        margin: auto;
+        padding: 0;
+        width: 90%;
+        max-width: 1200px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image-modal img {
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 0 50px rgba(255,255,255,0.1);
+        animation: zoomIn 0.3s ease;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: #fff;
+        font-size: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10000;
+        text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .modal-close:hover,
+    .modal-close:focus {
+        color: var(--gold);
+        transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+        .modal-close { font-size: 35px; top: 10px; right: 15px; }
+        .image-modal-content { width: 95%; }
+    }
+
+    /* Search results (legacy) */
+    .search-highlight { background-color: #FFFFD6; padding: 2px; }
+    .search-result {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--gray-200);
+    }
+    .search-result h3 { margin-top: 0; color: var(--navy); }
+    .search-result-meta { color: var(--text-muted); font-size: 13px; margin-bottom: 10px; }
+    .search-result-snippet { margin-bottom: 10px; }
+
+    /* Lightbox custom */
+    .ekko-lightbox .modal-content {
+        border-radius: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+    .ekko-lightbox .modal-header { border: none; }
+    .ekko-lightbox .modal-body { padding: 0; }
+    .ekko-lightbox .modal-footer { border: none; }
+    .ekko-lightbox-nav-overlay a {
+        color: white;
+        text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 991px) {
+        .navbar-default .navbar-brand { font-size: 14px; }
+        .navbar-default .navbar-brand img { width: 48px; height: 48px; margin-right: 10px; }
+        section { padding: 70px 0; }
+        .section-title h2 { font-size: 30px; }
+    }
+
+    @media (max-width: 767px) {
+        .navbar-default { min-height: 70px; }
+        .navbar-default .navbar-brand { padding: 12px 15px; }
+        .navbar-default .navbar-nav { margin: 0 -15px; padding: 10px 0; }
+        .navbar-default .navbar-nav > li > a { padding: 14px 20px; }
+        .navbar-default .navbar-nav > li > a::after { display: none; }
+        .navbar-default .navbar-nav > li > a[href*="admin"] { margin: 10px 20px; }
+        .navbar-form { margin: 10px 15px; padding: 0; }
+        .navbar-form .form-control { width: 100%; }
+        .navbar-form .form-control:focus { width: 100%; }
+        section { padding: 60px 0; }
+        .section-title { margin-bottom: 40px; }
+        .section-title h2 { font-size: 24px; }
+        .gallery-item img { height: 220px; }
+        .events-buttons { flex-direction: column; gap: 12px; }
+        .btn-event { width: 100%; justify-content: center; }
+        .feature-card { padding: 36px 24px; }
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================
+         NAVIGATION
+         ============================================ -->
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand">
+                    <img class="hidden-xs" src="https://www.thaibrothers.net/images/logo.png" alt="St.Gabriel Foundation">
+                    St.Gabriel's Foundation Network
+                </span>
+            </div>
+
+            <div class="collapse navbar-collapse" id="main-nav">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#about"><i class="fa fa-info-circle"></i> เกี่ยวกับเรา</a></li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle">ฝ่ายบริหาร <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <?php echo $print_side; ?>
+                        </ul>
+                    </li>
+                    <li><a href="https://www.montfortian.net" target="_blank" title="Montfortian Network Worldwide"><i class="fa fa-globe"></i> Montfortian Network</a></li>
+                    <li><a href="#contact">ติดต่อเรา</a></li>
+                    <li><a href="https://thaibrothers.net/admin/" target="_blank">SWIS Plus</a></li>
+                    <form class="navbar-form navbar-right" role="search" action="/search/" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="ค้นหา..." name="datapost" value="" id="srch-term">
+                        </div>
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         ROME CALENDAR
+         ============================================ -->
+    <?php if ($rome_calendar): ?>
+    <section class="rome-calendar-section">
+        <div class="container">
+            <div class="rome-calendar-box">
+                <div class="cal-date-bar">
+                    <?php echo date('M j', strtotime($rome_calendar['date'])); ?> · <?php echo htmlspecialchars($rome_calendar['day']); ?>
+                </div>
+                <div class="cal-content">
+                    <?php if (!empty($rome_calendar['liturgical_season_sunday'])): ?>
+                    <div class="cal-line"><strong>Liturgical Season:</strong> <?php echo htmlspecialchars($rome_calendar['liturgical_season_sunday']); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($rome_calendar['saints_feasts'])): ?>
+                    <div class="cal-line"><strong>Saints Feasts:</strong> <?php echo htmlspecialchars($rome_calendar['saints_feasts']); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($rome_calendar['special_days_events'])): ?>
+                    <div class="cal-line"><strong>Special Days:</strong> <?php echo htmlspecialchars($rome_calendar['special_days_events']); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($rome_calendar['historical_events'])): ?>
+                    <div class="cal-line"><strong>Historical Events:</strong> <?php echo htmlspecialchars($rome_calendar['historical_events']); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($rome_calendar['deceased_brothers'])): ?>
+                    <div class="cal-line"><strong>Deceased Brothers:</strong> <?php echo htmlspecialchars($rome_calendar['deceased_brothers']); ?></div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- ============================================
+         SCHOOL SLIDESHOW (HERO)
+         ============================================ -->
+    <section class="slideshow-section">
+        <div id="schoolSlideshow" class="carousel slide" data-ride="carousel" data-interval="4000">
+            <ol class="carousel-indicators">
+                <?php echo $slide_school['indicators']; ?>
+            </ol>
+            <div class="carousel-inner">
+                <?php echo $slide_school['items']; ?>
+            </div>
+            <a class="left carousel-control" href="#schoolSlideshow" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#schoolSlideshow" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ABOUT US — พันธกิจของเซนต์คาเบรียล แขวงประเทศไทย
+         ============================================ -->
+    <section id="about" class="about-us-section">
+        <div class="container">
+            <div class="about-hero">
+                <span class="eyebrow">About Us</span>
+                <h2>สืบสานพันธกิจนักบุญมงฟอร์ต</h2>
+                <div class="subtitle-en">Continuing the Mission of St. Louis Marie de Montfort</div>
+                <p class="lead">
+                    เว็บไซต์นี้เป็น <strong>ศูนย์กลางการเชื่อมโยงและเผยแพร่ผลการปฏิบัติพันธกิจ</strong> ของ
+                    <strong>คณะภราดาเซนต์คาเบรียล แขวงประเทศไทย</strong> ผู้สืบสานจิตตารมณ์ของ
+                    <em>นักบุญหลุยส์ มารี กรีญอง เดอ มงฟอร์ต</em> (St. Louis Marie Grignion de Montfort) ในการ
+                    <strong>จัดการศึกษาเพื่อเยาวชน</strong> ทุกคน โดยเฉพาะผู้ที่ด้อยโอกาส ผ่านการดำเนินงานของ
+                    <strong>14 โรงเรียนในเครือมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย</strong>
+                    ตั้งแต่ปี ค.ศ. 1901 จวบจนปัจจุบัน
+                </p>
+                <div class="about-quote">
+                    สิ่งใดที่ทำเพื่อพระเป็นเจ้า จะไม่มีวันสูญเสีย
+                    <cite>— นักบุญหลุยส์ มารี กรีญอง เดอ มงฟอร์ต</cite>
+                </div>
+            </div>
+
+            <div class="about-pillars">
+                <div class="pillar-card">
+                    <div class="pillar-icon"><i class="fa fa-heart"></i></div>
+                    <h3>จิตตารมณ์นักบุญมงฟอร์ต</h3>
+                    <p>ดำเนินชีวิตและภารกิจตามจิตตารมณ์ของนักบุญมงฟอร์ต — รักและรับใช้เยาวชนทุกคน โดยเฉพาะผู้ขาดโอกาส ด้วยความเสียสละ ศรัทธา และปัญญา</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon"><i class="fa fa-graduation-cap"></i></div>
+                    <h3>การศึกษาคาทอลิกมงฟอร์ต</h3>
+                    <p>จัดการศึกษาตามปรัชญาการศึกษามงฟอร์ต (MEC) 8 หลักการ เน้นผู้เรียนเป็นศูนย์กลาง บูรณาการความรู้ คุณธรรม และการพัฒนามนุษย์อย่างรอบด้าน</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon"><i class="fa fa-users"></i></div>
+                    <h3>เครือข่าย 14 โรงเรียน</h3>
+                    <p>มูลนิธิฯ ดูแลโรงเรียนในเครือ 14 แห่งทั่วประเทศ ตั้งแต่กรุงเทพฯ เชียงใหม่ ลำปาง ศรีราชา ระยอง ฉะเชิงเทรา อุบลราชธานี นครราชสีมา สมุทรปราการ สมุทรสาคร และนครพนม</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon"><i class="fa fa-database"></i></div>
+                    <h3>SWIS — แพลตฟอร์มกลาง</h3>
+                    <p>School Web-based Information System เชื่อมโยงข้อมูลทุกโรงเรียนเข้าเป็นเครือข่ายเดียว แสดงผลข่าวสาร ภาพกิจกรรม ปฏิทิน และผลงานของทุกโรงเรียนแบบเรียลไทม์</p>
+                </div>
+            </div>
+
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="stat-number">125+</div>
+                    <div class="stat-label">ปีแห่งพันธกิจในไทย<br>ตั้งแต่ ค.ศ. 1901</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">14</div>
+                    <div class="stat-label">โรงเรียนในเครือฯ<br>ทั่วประเทศไทย</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">60K+</div>
+                    <div class="stat-label">นักเรียนปัจจุบัน<br>ในเครือมูลนิธิฯ</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500K+</div>
+                    <div class="stat-label">ศิษย์เก่า<br>รับใช้สังคมไทย</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">220</div>
+                    <div class="stat-label">ฟังก์ชัน SWIS<br>เชื่อมโยงข้อมูลกลาง</div>
+                </div>
+            </div>
+
+            <div class="about-cta">
+                <a href="#schools" class="btn-about"><i class="fa fa-university"></i> โรงเรียนในเครือฯ</a>
+                <a href="https://www.stgabrielinst.org" target="_blank" class="btn-about outline"><i class="fa fa-globe"></i> Generalate (Rome)</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         EVENTS CALENDAR
+         ============================================ -->
+    <section id="events-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>ปฏิทินกิจกรรม</h2>
+                <p>ติดตามกิจกรรมประจำวัน พรุ่งนี้ และ 10 วันข้างหน้า ของมูลนิธิและโรงเรียนในเครือ</p>
+            </div>
+            <div class="events-buttons">
+                <a href="https://thaibrothers.net/today_events.php" class="btn-event burgundy" target="_blank">
+                    <i class="fa fa-calendar"></i> Today's Events
+                </a>
+                <a href="today_events.php?date_ymd=<?php echo $tomorrow; ?>" class="btn-event" target="_blank">
+                    <i class="fa fa-calendar-plus-o"></i> Tomorrow
+                </a>
+                <a href="today_events.php?next_ten_day_begin=<?php echo $next_ten_day_begin; ?>&next_ten_day_end=<?php echo $next_ten_day_end; ?>" class="btn-event" target="_blank">
+                    <i class="fa fa-calendar-check-o"></i> Next 10 Days
+                </a>
+            </div>
+            <div id='jlayer2' class="text-center" style="color:var(--text-muted); font-size:14px;">Connecting members' databases...</div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         GALLERY — SCHOOLS
+         ============================================ -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>อัลบั้มภาพโรงเรียนในเครือฯ</h2>
+                <p>ภาพกิจกรรมล่าสุดจากโรงเรียนในเครือมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย</p>
+            </div>
+            <div class="gallery">
+                <?php echo $print_pic_title; ?>
+            </div>
+            <div class="view-all">
+                <a href="https://www.thaibrothers.net/print_title_pic_all.php" class="btn-view-all" target="_blank">
+                    ดูทั้งหมด <i class="fa fa-arrow-right" style="margin-left:8px;"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         GALLERY — FOUNDATION
+         ============================================ -->
+    <section class="gallery-section alt">
+        <div class="container">
+            <div class="section-title">
+                <h2>อัลบั้มภาพมูลนิธิฯ</h2>
+                <p>ภาพกิจกรรมจากมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย</p>
+            </div>
+            <div class="gallery">
+                <?php echo $print_pic_title_bsg; ?>
+            </div>
+            <div class="view-all">
+                <a href="https://thaibrothers.net/html_edu/cgi-bin/picture_school/print_picture_school_all.php" class="btn-view-all" target="_blank">
+                    ดูทั้งหมด <i class="fa fa-arrow-right" style="margin-left:8px;"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         NEWS — SCHOOLS
+         ============================================ -->
+    <section class="news-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>ข่าวจากโรงเรียนในเครือฯ</h2>
+            </div>
+            <div id="jlayer3">Loading...</div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         NEWS — FOUNDATION
+         ============================================ -->
+    <section class="news-section alt">
+        <div class="container">
+            <div class="section-title">
+                <h2>ข่าวจากมูลนิธิฯ</h2>
+            </div>
+            <div id="jlayer9">Loading...</div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FANPAGE
+         ============================================ -->
+    <section class="fanpage-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>ติดตามจาก Fanpage</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div id="jlayer7">Loading...</div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div id="jlayer8">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SWIS PLUS UPDATES
+         ============================================ -->
+    <section class="news-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Update Version Module by SWIS Plus</h2>
+            </div>
+            <div id="jlayer10">Loading...</div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FEATURES (3 service cards)
+         ============================================ -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>บริการเพิ่มเติม</h2>
+                <p>แหล่งเรียนรู้ ฐานข้อมูลวิทยานิพนธ์ และเครือข่ายศิษย์เก่า</p>
+            </div>
+            <div class="features-grid">
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="72" viewBox="0 -960 960 960" width="72">
+                            <path d="M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z"/>
+                        </svg>
+                    </div>
+                    <a href="https://thaibrothers.net/chiness/" target="_blank">
+                        <h3>แบบเรียนภาษาจีน</h3>
+                    </a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="72" viewBox="0 -960 960 960" width="72">
+                            <path d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h480q33 0 56.5 23.5T800-800v640q0 33-23.5 56.5T720-80H240Zm0-80h480v-640h-80v280l-100-60-100 60v-280H240v640Zm0 0v-640 640Zm200-360 100-60 100 60-100-60-100 60Z"/>
+                        </svg>
+                    </div>
+                    <a href="http://www.thaibrothers.net/html_edu/cgi-bin/thesis/print_form_download.php" target="_blank">
+                        <h3>ฐานข้อมูลวิทยานิพนธ์</h3>
+                    </a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="72" viewBox="0 -960 960 960" width="72">
+                            <path d="M480-800q-33 0-56.5-23.5T400-880q0-33 23.5-56.5T480-960q33 0 56.5 23.5T560-880q0 33-23.5 56.5T480-800ZM360-200v-480q-60-5-122-15t-118-25l20-80q78 21 166 30.5t174 9.5q86 0 174-9.5T820-800l20 80q-56 15-118 25t-122 15v480h-80v-240h-80v240h-80ZM320 0q-17 0-28.5-11.5T280-40q0-17 11.5-28.5T320-80q17 0 28.5 11.5T360-40q0 17-11.5 28.5T320 0Zm160 0q-17 0-28.5-11.5T440-40q0-17 11.5-28.5T480-80q17 0 28.5 11.5T520-40q0 17-11.5 28.5T480 0Zm160 0q-17 0-28.5-11.5T600-40q0-17 11.5-28.5T640-80q17 0 28.5 11.5T680-40q0 17-11.5 28.5T640 0Z"/>
+                        </svg>
+                    </div>
+                    <a href="https://thaibrothers.net/alumni/" target="_blank">
+                        <h3>ลงทะเบียนศิษย์เก่า</h3>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         NETWORK BAR — เครือข่ายสากล
+         ============================================ -->
+    <section class="network-bar">
+        <div class="container">
+            <div class="section-title">
+                <h2>เครือข่ายสากล</h2>
+                <p>Thai Brothers Network เป็นส่วนหนึ่งของเครือข่าย Montfortian Family และ St.Gabriel Foundation ทั่วโลก</p>
+            </div>
+            <div class="network-grid">
+
+                <a href="https://www.montfortian.net" target="_blank" class="network-link">
+                    <div class="network-icon"><i class="fa fa-globe"></i></div>
+                    <div class="network-info">
+                        <h4>Montfortian Network</h4>
+                        <div class="url">montfortian.net</div>
+                        <div class="desc">เครือข่ายคณะมงฟอร์ต 3 คณะทั่วโลก — Company of Mary, Daughters of Wisdom, Brothers of St.Gabriel</div>
+                    </div>
+                </a>
+
+                <a href="https://www.stgabrielinst.org" target="_blank" class="network-link">
+                    <div class="network-icon"><i class="fa fa-university"></i></div>
+                    <div class="network-info">
+                        <h4>St.Gabriel Foundation Generalate</h4>
+                        <div class="url">stgabrielinst.org</div>
+                        <div class="desc">ศูนย์กลางคณะภราดาเซนต์คาเบรียลทั่วโลก (Rome, Italy)</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer>
+        <div class="container">
+            <div class="row" id="contact">
+                <div class="col-lg-6 col-md-6">
+                    <h4>ติดต่อเรา</h4>
+                    <p><i class="fa fa-map-marker"></i> อาคารมูลนิธิคณะเซนต์คาเบรียลแห่งประเทศไทย<br>
+                       2 ซอยแสงเงิน (ทองหล่อ 25) ถนนสุขุมวิท 55<br>
+                       แขวงคลองตันเหนือ เขตวัฒนา กรุงเทพฯ 10110</p>
+                    <p><i class="fa fa-phone"></i> (02) 712-9010 · โทรสาร (02) 390-2292</p>
+                    <p><i class="fa fa-envelope"></i> swiscenter@gmail.com</p>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <h4>Thai Brothers Network</h4>
+                    <div id="fb-root"></div>
+                    <script>
+                    (function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=123915407768036";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                    </script>
+                    <div class="fb-page" data-href="https://www.facebook.com/BSG2444/" data-width="340"
+                         data-small-header="false" data-adapt-container-width="true" data-hide-cover="false"
+                         data-show-facepile="true">
+                        <blockquote cite="https://www.facebook.com/BSG2444/" class="fb-xfbml-parse-ignore">
+                            <a href="https://www.facebook.com/BSG2444/">Thai Brothers Network</a>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Copyright &copy; thaibrothers.net 2004 · swiscenter@gmail.com
+                    <img src='images/swis.png' width='60' height='60' alt="SWIS">
+                </p>
+                <p style="margin-top:10px; font-size:12px; opacity:0.8;">
+                    Part of <a href="https://www.montfortian.net" target="_blank" style="color:var(--gold); text-decoration:none; font-weight:600;">Montfortian Network</a>
+                    &nbsp;·&nbsp;
+                    <a href="https://www.stgabrielinst.org" target="_blank" style="color:var(--gold); text-decoration:none; font-weight:600;">St.Gabriel Foundation Worldwide</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         MODAL POPUP
+         ============================================ -->
+    <div id="imageModal" class="image-modal">
+        <span class="modal-close">&times;</span>
+        <div class="image-modal-content">
+            <img src="images/mom.png" alt="Modal Image">
+        </div>
+    </div>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+    <script>
+    // AJAX loaders (preserved from original)
+    $('#jlayer1').load("calenda_bsg_new.php");
+    $('#jlayer2').load('calenda_school_new.php');
+    $('#jlayer3').load('print_title_news2.php?tnetable=tne1&action=1&num_news=1');
+    $('#jlayer4').load("calenda_bsg.php");
+    $('#jlayer5').load('calenda_school.php');
+    $('#jlayer6').load('print_informed_school.php');
+    $('#jlayer7').load('print_edu_swis.php');
+    $('#jlayer8').load('facebook_link.php');
+    $('#jlayer9').load('print_news_bsg.php?type=2&list=10');
+    $('#jlayer10').load('/software_updates/get_data_list.php?per=10');
+
+    // Lightbox
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+            alwaysShowClose: true,
+            showArrows: true
+        });
+    });
+
+    // Modal popup on load
+    $(document).ready(function() {
+        var modal = $('#imageModal');
+        var modalClose = $('.modal-close');
+
+        setTimeout(function() {
+            modal.fadeIn(300);
+        }, 500);
+
+        modalClose.click(function() {
+            modal.fadeOut(300);
+        });
+
+        modal.click(function(e) {
+            if (e.target.id === 'imageModal' || $(e.target).hasClass('image-modal')) {
+                modal.fadeOut(300);
+            }
+        });
+
+        $(document).keydown(function(e) {
+            if (e.key === "Escape") {
+                modal.fadeOut(300);
+            }
+        });
+    });
+
+    // Dropdown hover (desktop) + click (mobile)
+    $(document).ready(function() {
+        if ($(window).width() > 767) {
+            $('.dropdown').hover(
+                function() { $(this).addClass('open'); },
+                function() { $(this).removeClass('open'); }
+            );
+        }
+
+        $('.dropdown-toggle').click(function(e) {
+            if ($(window).width() <= 767) {
+                e.preventDefault();
+                var $parent = $(this).parent();
+                $('.dropdown').not($parent).removeClass('open');
+                $parent.toggleClass('open');
+            }
+        });
+
+        $(document).click(function(e) {
+            if (!$('.dropdown').is(e.target) && $('.dropdown').has(e.target).length === 0) {
+                $('.dropdown').removeClass('open');
+            }
+        });
+
+        $('.dropdown-menu a').click(function() {
+            var href = $(this).attr('href');
+            var isPageSection = href && href.startsWith('#');
+            if (isPageSection) {
+                $('.navbar-nav li').removeClass('active');
+                $(this).closest('.dropdown').addClass('active');
+                if ($(href).length) {
+                    $('html, body').animate({ scrollTop: $(href).offset().top - 90 }, 800);
+                    return false;
+                }
+            }
+        });
+    });
+
+    // Navbar shadow on scroll
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 50) {
+            $('.navbar-default').addClass('scrolled');
+        } else {
+            $('.navbar-default').removeClass('scrolled');
+        }
+    });
+    </script>
+</body>
+</html>
